@@ -1,0 +1,6 @@
+{
+  "name": "Kit Completo Meus Cadernos da Leitura",
+  "description": "8 materiais ilustrados para aprender a ler e se divertir. Alfabetização fônica lúdica e acelerada em 15 minutos por dia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
