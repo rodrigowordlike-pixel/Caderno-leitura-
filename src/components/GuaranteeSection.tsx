@@ -7,7 +7,7 @@ interface GuaranteeSectionProps {
 
 export const GuaranteeSection: React.FC<GuaranteeSectionProps> = ({ onDirectCta }) => {
   return (
-    <section id="garantia" className="py-16 sm:py-24 bg-white border-b border-slate-100 scroll-mt-20">
+    <section id="garantia" className="py-8 sm:py-12 bg-white border-b border-slate-100 scroll-mt-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Box Container */}

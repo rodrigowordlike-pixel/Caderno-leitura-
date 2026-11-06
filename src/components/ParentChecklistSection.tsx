@@ -26,7 +26,7 @@ export const ParentChecklistSection: React.FC = () => {
   ];
 
   return (
-    <section id="diagnostico-pais" className="py-14 sm:py-20 bg-slate-50/80 border-b border-slate-200/80 scroll-mt-6">
+    <section id="diagnostico-pais" className="py-8 sm:py-12 bg-slate-50/80 border-b border-slate-200/80 scroll-mt-6">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

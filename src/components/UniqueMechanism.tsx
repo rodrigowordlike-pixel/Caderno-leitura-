@@ -1,24 +1,15 @@
-import React, { useState, useRef } from 'react';
-import { AlertOctagon, CheckCircle2, Lightbulb, Sparkles, Volume2, Eye, Trophy, Play, ArrowRight } from 'lucide-react';
+import React from 'react';
+import { AlertOctagon, CheckCircle2, Lightbulb, Sparkles, Volume2, Eye, Trophy, ArrowRight } from 'lucide-react';
 import { ASSETS } from '../data/landingData';
 import { ActivitiesCarousel } from './ActivitiesCarousel';
 
 export const UniqueMechanism: React.FC = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const handlePlayVideo = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-      setIsPlaying(true);
-    }
-  };
   return (
-    <section id="mecanismo-unico" className="py-16 sm:py-24 bg-white border-b border-slate-100 scroll-mt-10">
+    <section id="mecanismo-unico" className="py-8 sm:py-12 bg-white border-b border-slate-100 scroll-mt-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-50 text-amber-900 border border-amber-200 text-xs font-bold uppercase tracking-wider mb-4">
             <Lightbulb className="w-3.5 h-3.5 text-amber-600" />
             <span>A Revelação Que Nenhuma Escola Te Contou</span>
@@ -165,61 +156,34 @@ export const UniqueMechanism: React.FC = () => {
         </div>
 
         {/* ============================================================== */}
-        {/* VSL STYLE DEMONSTRATION SECTION: COMO SEU FILHO VAI APRENDER   */}
+        {/* DEMONSTRATION BREAKDOWN SECTION: COMO SEU FILHO VAI APRENDER   */}
         {/* ============================================================== */}
         <div className="bg-gradient-to-br from-amber-50 via-white to-orange-50 border-2 border-amber-300/80 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
           
           {/* Top Badge */}
           <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-100 text-[#FF3B69] border border-rose-200 text-xs font-black uppercase tracking-wider mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#FF3B69] animate-ping" />
-              <span>Vídeo Explicativo • Veja na Prática</span>
+              <Sparkles className="w-3.5 h-3.5 fill-[#FF3B69]" />
+              <span>A Metodologia em Ação</span>
             </div>
             <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight mb-2">
-              Veja exatamente como seu filho ou sua filha vai aprender a ler
+              Entenda como seu filho ou sua filha vai aprender a ler
             </h3>
             <p className="text-slate-600 text-xs sm:text-sm">
-              Assista à demonstração real do material em ação e entenda por que a leitura destrava sem esforço e sem choro.
+              Cada caderno foi desenhado para destravar a leitura sem esforço, sem choro e com alegria.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
-            {/* Left: VSL Smartphone Video Player */}
+            {/* Left: Documentary Image of Child Reading */}
             <div className="lg:col-span-5 flex flex-col items-center">
-              <div className="relative w-full max-w-[300px] sm:max-w-[320px] rounded-[32px] overflow-hidden shadow-2xl border-4 border-slate-900 bg-black aspect-[9/16] group">
-                
-                <video
-                  ref={videoRef}
-                  src={ASSETS.vslVideo}
-                  playsInline
-                  controls
-                  preload="metadata"
-                  onPlay={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
-                  className="w-full h-full object-cover"
+              <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-amber-200 bg-white">
+                <img
+                  src={ASSETS.motherChildReading}
+                  alt="Mãe e filho lendo juntos felizes com o Livro da Leitura"
+                  className="w-full h-64 sm:h-80 object-cover"
                 />
-
-                {/* Interactive Play Overlay when not playing */}
-                {!isPlaying && (
-                  <button
-                    onClick={handlePlayVideo}
-                    className="absolute inset-0 w-full h-full bg-black/40 backdrop-blur-[2px] flex flex-col items-center justify-center gap-3 text-white cursor-pointer transition-all hover:bg-black/30 group-hover:scale-102"
-                    aria-label="Assistir ao vídeo de demonstração"
-                  >
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-2xl shadow-rose-500/80 ring-4 ring-white/80 animate-pulse">
-                      <Play className="w-8 h-8 sm:w-9 sm:h-9 fill-white translate-x-0.5" />
-                    </div>
-                    <span className="text-xs sm:text-sm font-black uppercase tracking-wider bg-black/70 px-4 py-1.5 rounded-full border border-white/20">
-                      ▶ Clique para Ouvir com Som
-                    </span>
-                  </button>
-                )}
-              </div>
-
-              <div className="mt-3 flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-                <Volume2 className="w-3.5 h-3.5 text-amber-600" />
-                <span>Vídeo com áudio de demonstração real</span>
               </div>
             </div>
 

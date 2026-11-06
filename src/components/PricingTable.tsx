@@ -67,7 +67,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
   ];
 
   return (
-    <section id="precos" className="py-12 sm:py-20 bg-gradient-to-b from-rose-50/40 via-white to-amber-50/30 scroll-mt-10 overflow-hidden">
+    <section id="precos" className="py-8 sm:py-12 bg-gradient-to-b from-rose-50/40 via-white to-amber-50/30 scroll-mt-10 overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

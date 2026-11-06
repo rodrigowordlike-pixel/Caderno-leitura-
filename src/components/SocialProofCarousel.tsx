@@ -23,11 +23,11 @@ export const SocialProofCarousel: React.FC = () => {
   const current = TESTIMONIALS_DATA[currentIndex];
 
   return (
-    <section id="depoimentos" className="py-16 sm:py-24 bg-white border-b border-slate-100 scroll-mt-20">
+    <section id="depoimentos" className="py-8 sm:py-12 bg-white border-b border-slate-100 scroll-mt-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold uppercase tracking-wider mb-4">
             <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
             <span>Relatos Reais de Quem Teve Dúvidas no Começo</span>

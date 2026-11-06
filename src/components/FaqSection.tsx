@@ -10,11 +10,11 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200/80 scroll-mt-20">
+    <section id="faq" className="py-8 sm:py-12 bg-slate-50 border-b border-slate-200/80 scroll-mt-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-200/80 text-slate-800 text-xs font-bold uppercase tracking-wider mb-4">
             <HelpCircle className="w-3.5 h-3.5 text-slate-600" />
             <span>Perguntas Frequentes</span>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Star, ArrowRight, ShieldCheck, ChevronDown, Heart, Sparkles, Lock, Zap } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Star, ArrowRight, ShieldCheck, ChevronDown, Flame, Lock, Zap, Volume2, Sparkles, CheckCircle2 } from 'lucide-react';
 import { ASSETS } from '../data/landingData';
 
 interface HeroSectionProps {
@@ -7,123 +7,192 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleUnmute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+      setIsMuted(false);
+    }
+  };
+
   return (
-    <section className="relative pt-14 pb-12 sm:pt-16 sm:pb-16 bg-white border-b border-slate-100">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+    <section className="relative pt-6 pb-8 sm:pt-10 sm:pb-12 bg-gradient-to-b from-rose-50/70 via-white to-amber-50/40 border-b border-slate-100 overflow-hidden">
+      
+      {/* Subtle Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-80 bg-gradient-to-b from-rose-200/30 via-amber-100/20 to-transparent blur-3xl pointer-events-none -z-10" />
+
+      <div className="max-w-4xl mx-auto px-3.5 sm:px-6 text-center">
         
-        {/* Subtle, unboxed empathy lead */}
-        <div className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-rose-600 mb-3">
-          <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500 shrink-0" />
-          <span>Para pais cansados de ver a lição de casa terminar em choro</span>
+        {/* Top Urgency Pill */}
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#FF3B69] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider mb-2.5 shadow-md shadow-rose-200">
+          <Flame className="w-3.5 h-3.5 fill-amber-300 text-amber-300 shrink-0" />
+          <span>MÉTODO DE ALFABETIZAÇÃO ACELERADA 2026</span>
         </div>
 
-        {/* Clean, magnetic, deeply relatable headline */}
-        <h1 className="text-2xl sm:text-4xl font-black text-slate-900 leading-tight tracking-tight mb-4 [text-wrap:balance]">
+        {/* Aggressive Magnetic Headline (Tight line height for mobile) */}
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.12] tracking-tight mb-2.5 [text-wrap:balance]">
           E se o seu filho parasse de chorar na hora da lição e começasse a{' '}
-          <span className="text-rose-600 underline decoration-rose-300 decoration-2">
-            pedir para ler historinhas para você?
+          <span className="text-[#FF3B69] bg-rose-50 px-2 py-0.5 rounded-xl border border-rose-200/80 inline-block">
+            pedir para ler historinhas sozinho?
           </span>
         </h1>
 
-        {/* Simple, warm, guilt-relieving subheadline */}
-        <p className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed mb-6 [text-wrap:balance]">
-          O problema nunca foi o seu filho. Descubra o método lúdico com os <strong>8 Cadernos Ilustrados</strong> que destrava a leitura e a autoconfiança da criança em apenas 15 minutos por dia.
+        {/* Subheadline Hook */}
+        <p className="text-xs sm:text-base font-bold text-slate-700 max-w-2xl mx-auto leading-relaxed mb-4 [text-wrap:balance]">
+          Veja no vídeo rápido de 1 minuto abaixo como seu filho vai aprender a ler <span className="text-[#FF3B69] font-black underline decoration-2">sem trava, sem choro e sem birra</span> em 15 min/dia!
         </p>
 
-        {/* Product Image - Clean, centered, pristine */}
-        <div className="max-w-md sm:max-w-lg mx-auto mb-6">
-          <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-200/80 bg-white">
+        {/* ============================================================== */}
+        {/* AUTOPLAYING VSL VIDEO PLAYER WITH UNMUTE HOOK                 */}
+        {/* ============================================================== */}
+        <div className="max-w-[310px] sm:max-w-md mx-auto mb-6">
+          
+          {/* VSL Video Container Frame */}
+          <div className="relative rounded-[28px] overflow-hidden shadow-2xl shadow-rose-500/35 border-4 border-slate-950 bg-slate-950 aspect-[9/16] group mx-auto">
+            
+            <video
+              ref={videoRef}
+              src={ASSETS.vslVideo}
+              autoPlay
+              muted={isMuted}
+              playsInline
+              loop
+              controls={!isMuted}
+              preload="auto"
+              className="w-full h-full object-cover"
+            />
+
+            {/* Muted Autoplay Hook Overlay */}
+            {isMuted && (
+              <button
+                onClick={handleUnmute}
+                className="absolute inset-0 w-full h-full bg-slate-950/40 backdrop-blur-[1px] flex flex-col items-center justify-center p-4 text-white cursor-pointer transition-all hover:bg-slate-950/30 group-hover:scale-[1.01]"
+                aria-label="Ligar o som do vídeo de demonstração"
+              >
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-18 h-18 sm:w-22 sm:h-22 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-bounce">
+                    <Volume2 className="w-9 h-9 sm:w-11 sm:h-11" />
+                  </div>
+                  
+                  <div className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-5 py-2.5 rounded-full shadow-2xl border border-white/30 flex items-center gap-2">
+                    <Volume2 className="w-4 h-4 animate-pulse" />
+                    <span>TOQUE PARA OUVIR COM SOM</span>
+                  </div>
+                </div>
+              </button>
+            )}
+          </div>
+
+          {/* Key Takeaway Micro-Pills */}
+          <div className="mt-2.5 bg-white border border-rose-200/80 rounded-2xl p-2.5 shadow-2xs text-left space-y-1.5 text-[11px] sm:text-xs text-slate-700">
+            <div className="flex items-center gap-2 font-bold text-slate-900">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <span>Apoio da Mãozinha: A criança lê sem pular linhas e sem se perder</span>
+            </div>
+            <div className="flex items-center gap-2 font-bold text-slate-900">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <span>Histórias Pautadas: Frases curtas de fixação rápida em PDF</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Product Image Mockup Preview */}
+        <div className="max-w-[280px] sm:max-w-md mx-auto mb-5">
+          <div className="rounded-2xl overflow-hidden shadow-md border-2 border-rose-200/80 bg-white p-1.5">
             <img
               src={ASSETS.heroMockup}
-              alt="Kit Completo Meus Cadernos da Leitura - 8 Materiais para Aprender e se Divertir"
-              className="w-full h-auto object-cover block select-none"
+              alt="Kit Completo Meus Cadernos da Leitura - 8 Materiais"
+              className="w-full h-auto object-cover block select-none rounded-xl"
               loading="eager"
             />
           </div>
         </div>
 
-        {/* MINI OFERTA DE ALTA CONVERSÃO - DESIGN VIBRANTE E APETITOSO */}
-        <div className="relative max-w-md mx-auto bg-white border-2 border-[#FF3B69] rounded-[28px] p-5 sm:p-6 shadow-2xl shadow-rose-200/60 text-center mt-2">
+        {/* ============================================================== */}
+        {/* HIGH-CONVERTING AGGRESSIVE OFFER CARD                          */}
+        {/* ============================================================== */}
+        <div className="relative max-w-md mx-auto bg-white border-2 border-[#FF3B69] rounded-[28px] p-4.5 sm:p-6 shadow-2xl shadow-rose-300/40 text-center">
           
-          {/* Floating Pill Badge */}
-          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#FF3B69] text-white text-[10.5px] sm:text-xs font-black uppercase px-4 py-1 rounded-full shadow-md flex items-center gap-1.5 tracking-wider whitespace-nowrap z-10">
-            <span className="text-yellow-300 text-sm leading-none">★</span>
-            <span>OFERTA ESPECIAL DE LANÇAMENTO</span>
+          {/* Floating Badge */}
+          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#FF3B69] text-white text-[10px] sm:text-xs font-black uppercase px-4 py-1 rounded-full shadow-md flex items-center gap-1.5 tracking-wider whitespace-nowrap z-10 border border-white/40">
+            <Sparkles className="w-3.5 h-3.5 fill-yellow-300 text-yellow-300" />
+            <span>OFERTA IMPERDÍVEL DE HOJE</span>
           </div>
 
-          {/* Value Micro-Pills / Chips */}
-          <div className="flex flex-wrap items-center justify-center gap-1.5 mt-1.5 mb-3 text-[11px] font-extrabold">
-            <span className="bg-rose-50 text-[#FF3B69] border border-rose-200/80 px-2.5 py-0.5 rounded-full">
+          {/* Micro Value Chips */}
+          <div className="flex flex-wrap items-center justify-center gap-1 mt-1.5 mb-2.5 text-[10.5px] font-extrabold">
+            <span className="bg-rose-50 text-[#FF3B69] border border-rose-200 px-2 py-0.5 rounded-full">
               📚 8 Cadernos da Leitura
             </span>
-            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-2.5 py-0.5 rounded-full">
+            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full">
               🎁 6 Bônus Inclusos
             </span>
-            <span className="bg-amber-50 text-amber-800 border border-amber-200/80 px-2.5 py-0.5 rounded-full">
-              ⚡ Download em PDF
+            <span className="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full">
+              ⚡ Liberado no E-mail
             </span>
           </div>
 
-          {/* Social Proof Rating */}
-          <div className="flex items-center justify-center gap-1.5 mb-3">
+          {/* Social Proof */}
+          <div className="flex items-center justify-center gap-1 mb-2.5">
             <div className="flex items-center gap-0.5 text-[#FF3B69]">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-[#FF3B69] text-[#FF3B69]" />
+                <Star key={i} className="w-3.5 h-3.5 fill-[#FF3B69] text-[#FF3B69]" />
               ))}
             </div>
-            <span className="text-xs font-bold text-slate-800">
-              4,9/5 — Mais de 500 famílias aprovaram
+            <span className="text-[11px] sm:text-xs font-extrabold text-slate-800">
+              4,9/5 — Mais de 500 mães aprovaram
             </span>
           </div>
 
-          {/* Ancoragem de Preço de Alto Impacto */}
-          <div className="mb-3.5">
-            <span className="text-xs sm:text-sm text-slate-400 line-through font-semibold block">
-              de R$ 97,00
+          {/* Price Anchor */}
+          <div className="mb-3">
+            <span className="text-[11px] sm:text-xs text-slate-400 line-through font-bold block">
+              De R$ 97,00 por apenas:
             </span>
-            <div className="flex items-baseline justify-center gap-1.5 my-0.5">
-              <span className="text-xs font-bold text-slate-600">Por apenas</span>
-              <span className="text-4xl sm:text-5xl font-black text-[#FF3B69] tracking-tight leading-none">
-                R$ 37,90
-              </span>
+            <div className="text-4xl sm:text-5xl font-black text-[#FF3B69] tracking-tight leading-none my-0.5">
+              R$ 37,90
             </div>
-            <span className="text-[11px] text-slate-500 font-medium block mt-1">
+            <span className="text-[11px] font-bold text-slate-600 block mt-1">
               💳 Parcele em até 12x no cartão de crédito ou pague via PIX
             </span>
           </div>
 
-          {/* Botão Tátil 3D de Alta Conversão */}
+          {/* Aggressive 3D CTA Button */}
           <button
             onClick={onCtaClick}
-            className="w-full py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-xl shadow-rose-200 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer mb-2"
+            className="w-full py-3.5 sm:py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-lg shadow-rose-300 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer mb-2"
           >
-            <span>QUERO MEU KIT COMPLETO + 6 BÔNUS</span>
+            <span>QUERO DESTRAVAR A LEITURA DO MEU FILHO!</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
 
-          {/* Selos de Confiança */}
-          <div className="flex items-center justify-around text-[10.5px] sm:text-xs text-slate-500 pt-2 border-t border-slate-100">
-            <div className="flex items-center gap-1">
-              <Lock className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Compra Segura</span>
+          {/* Security & Guarantee Seals */}
+          <div className="flex items-center justify-around text-[10px] sm:text-xs text-slate-500 pt-2 border-t border-slate-100">
+            <div className="flex items-center gap-1 font-semibold">
+              <Lock className="w-3 h-3 text-emerald-600" />
+              <span>Compra 100% Segura</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Zap className="w-3.5 h-3.5 text-amber-500" />
-              <span>Acesso Imediato</span>
+            <div className="flex items-center gap-1 font-semibold">
+              <Zap className="w-3 h-3 text-amber-500" />
+              <span>PIX Instantâneo</span>
             </div>
-            <div className="flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-sky-600" />
+            <div className="flex items-center gap-1 font-semibold">
+              <ShieldCheck className="w-3 h-3 text-sky-600" />
               <span>7 Dias de Garantia</span>
             </div>
           </div>
 
         </div>
 
-        {/* Link Sutil para continuar lendo a página */}
-        <div className="mt-5">
+        {/* Scroll link */}
+        <div className="mt-3.5">
           <a
             href="#diagnostico-pais"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+            className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-slate-800 transition-colors"
           >
             <span>Ou veja os 5 sinais e o conteúdo detalhado abaixo</span>
             <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
