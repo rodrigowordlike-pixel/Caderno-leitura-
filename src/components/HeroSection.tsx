@@ -86,19 +86,33 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
             )}
           </div>
 
-          {/* Key Value Points */}
-          <div className="mt-2.5 bg-white border border-rose-200/80 rounded-2xl p-3 shadow-2xs text-left space-y-1.5 text-[11px] sm:text-xs text-slate-700">
-            <div className="flex items-center gap-2 font-bold text-slate-900">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>Chega de brigas na hora da lição de casa</span>
+          {/* Key Emotional Reflection & Action Triggers */}
+          <div className="mt-3 bg-gradient-to-br from-rose-50/80 via-white to-amber-50/60 border-2 border-rose-300/80 rounded-2xl p-3.5 sm:p-4 shadow-sm text-left space-y-2.5 text-xs sm:text-sm text-slate-800">
+            <div className="flex items-start gap-2.5">
+              <div className="w-5 h-5 rounded-full bg-rose-100 text-[#FF3B69] flex items-center justify-center shrink-0 mt-0.5 font-black text-xs">
+                ❤️
+              </div>
+              <p className="leading-snug">
+                <strong className="text-slate-900 font-black">Faça isso pelo seu filho:</strong> Dá a ele a alegria de aprender sem trauma e o orgulho de dizer <em>&ldquo;Mamãe, papai, eu consegui ler sozinho!&rdquo;</em>.
+              </p>
             </div>
-            <div className="flex items-center gap-2 font-bold text-slate-900">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>A criança aprende o som vivo de cada letrinha sem decoreba</span>
+
+            <div className="flex items-start gap-2.5">
+              <div className="w-5 h-5 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5 font-black text-xs">
+                🎁
+              </div>
+              <p className="leading-snug">
+                <strong className="text-slate-900 font-black">O melhor presente para o futuro dele:</strong> Não é sobre um PDF, é sobre proteger a autoestima da criança para que ela nunca se sinta inferior na escola.
+              </p>
             </div>
-            <div className="flex items-center gap-2 font-bold text-slate-900">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>Material em PDF pronto para imprimir e usar hoje mesmo</span>
+
+            <div className="flex items-start gap-2.5">
+              <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-black text-xs">
+                🚀
+              </div>
+              <p className="leading-snug">
+                <strong className="text-slate-900 font-black">Anos à frente dos colegas:</strong> Seu filho sai na frente da maioria das crianças da turma que continuam travadas, gaguejando e atrasadas na leitura.
+              </p>
             </div>
           </div>
         </div>
