@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Star, ArrowRight, ShieldCheck, ChevronDown, Flame, Lock, Zap, Volume2, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Star, ArrowRight, ShieldCheck, ChevronDown, Lock, Zap, Volume2, Sparkles, CheckCircle2 } from 'lucide-react';
 import { ASSETS } from '../data/landingData';
 
 interface HeroSectionProps {
@@ -20,39 +20,38 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
   };
 
   return (
-    <section className="relative pt-6 pb-8 sm:pt-10 sm:pb-12 bg-gradient-to-b from-rose-50/70 via-white to-amber-50/40 border-b border-slate-100 overflow-hidden">
+    <section className="relative pt-6 pb-8 sm:pt-10 sm:pb-12 bg-gradient-to-b from-rose-50/70 via-white to-amber-50/30 border-b border-slate-100 overflow-hidden">
       
       {/* Subtle Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-80 bg-gradient-to-b from-rose-200/30 via-amber-100/20 to-transparent blur-3xl pointer-events-none -z-10" />
 
-      <div className="max-w-4xl mx-auto px-3.5 sm:px-6 text-center">
+      <div className="max-w-3xl mx-auto px-3.5 sm:px-6 text-center">
         
-        {/* Top Urgency Pill */}
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#FF3B69] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider mb-2.5 shadow-md shadow-rose-200">
-          <Flame className="w-3.5 h-3.5 fill-amber-300 text-amber-300 shrink-0" />
-          <span>MÉTODO DE ALFABETIZAÇÃO ACELERADA 2026</span>
-        </div>
-
-        {/* Aggressive Magnetic Headline (Tight line height for mobile) */}
-        <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.12] tracking-tight mb-2.5 [text-wrap:balance]">
-          E se o seu filho parasse de chorar na hora da lição e começasse a{' '}
-          <span className="text-[#FF3B69] bg-rose-50 px-2 py-0.5 rounded-xl border border-rose-200/80 inline-block">
-            pedir para ler historinhas sozinho?
+        {/* Main Headline - Ultra Human, Persuasive, Direct */}
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] tracking-tight mb-3 [text-wrap:balance]">
+          O método simples de 15 minutos que faz crianças de 4 a 8 anos lerem as primeiras palavras{' '}
+          <span className="text-[#FF3B69] bg-rose-100/80 px-2 py-0.5 rounded-xl border border-rose-200 inline-block font-black">
+            sem choro e sem decoreba
           </span>
         </h1>
 
         {/* Subheadline Hook */}
-        <p className="text-xs sm:text-base font-bold text-slate-700 max-w-2xl mx-auto leading-relaxed mb-4 [text-wrap:balance]">
-          Veja no vídeo rápido de 1 minuto abaixo como seu filho vai aprender a ler <span className="text-[#FF3B69] font-black underline decoration-2">sem trava, sem choro e sem birra</span> em 15 min/dia!
+        <p className="text-xs sm:text-base font-extrabold text-slate-700 max-w-2xl mx-auto leading-relaxed mb-4 [text-wrap:balance]">
+          Assista ao vídeo abaixo e veja na prática como os <strong>8 Cadernos Ilustrados</strong> destravaram a leitura de crianças que antes choravam na hora da lição.
         </p>
 
         {/* ============================================================== */}
-        {/* AUTOPLAYING VSL VIDEO PLAYER WITH UNMUTE HOOK                 */}
+        {/* VSL VIDEO PLAYER                                               */}
         {/* ============================================================== */}
         <div className="max-w-[310px] sm:max-w-md mx-auto mb-6">
           
-          {/* VSL Video Container Frame */}
-          <div className="relative rounded-[28px] overflow-hidden shadow-2xl shadow-rose-500/35 border-4 border-slate-950 bg-slate-950 aspect-[9/16] group mx-auto">
+          {/* Direct Human Callout */}
+          <div className="bg-slate-900 text-white rounded-t-2xl py-2 px-3 text-[11px] sm:text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 border-x-4 border-t-4 border-slate-900 shadow-md">
+            <span>▼ Veja a demonstração na prática:</span>
+          </div>
+
+          {/* Video Container Frame */}
+          <div className="relative rounded-b-[28px] overflow-hidden shadow-2xl shadow-rose-500/35 border-4 border-slate-950 bg-slate-950 aspect-[9/16] group mx-auto">
             
             <video
               ref={videoRef}
@@ -87,15 +86,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
             )}
           </div>
 
-          {/* Key Takeaway Micro-Pills */}
-          <div className="mt-2.5 bg-white border border-rose-200/80 rounded-2xl p-2.5 shadow-2xs text-left space-y-1.5 text-[11px] sm:text-xs text-slate-700">
+          {/* Key Value Points */}
+          <div className="mt-2.5 bg-white border border-rose-200/80 rounded-2xl p-3 shadow-2xs text-left space-y-1.5 text-[11px] sm:text-xs text-slate-700">
             <div className="flex items-center gap-2 font-bold text-slate-900">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>Apoio da Mãozinha: A criança lê sem pular linhas e sem se perder</span>
+              <span>Chega de brigas na hora da lição de casa</span>
             </div>
             <div className="flex items-center gap-2 font-bold text-slate-900">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>Histórias Pautadas: Frases curtas de fixação rápida em PDF</span>
+              <span>A criança aprende o som vivo de cada letrinha sem decoreba</span>
+            </div>
+            <div className="flex items-center gap-2 font-bold text-slate-900">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <span>Material em PDF pronto para imprimir e usar hoje mesmo</span>
             </div>
           </div>
         </div>
@@ -113,14 +116,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
         </div>
 
         {/* ============================================================== */}
-        {/* HIGH-CONVERTING AGGRESSIVE OFFER CARD                          */}
+        {/* OFFER CARD                                                     */}
         {/* ============================================================== */}
         <div className="relative max-w-md mx-auto bg-white border-2 border-[#FF3B69] rounded-[28px] p-4.5 sm:p-6 shadow-2xl shadow-rose-300/40 text-center">
           
           {/* Floating Badge */}
           <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#FF3B69] text-white text-[10px] sm:text-xs font-black uppercase px-4 py-1 rounded-full shadow-md flex items-center gap-1.5 tracking-wider whitespace-nowrap z-10 border border-white/40">
             <Sparkles className="w-3.5 h-3.5 fill-yellow-300 text-yellow-300" />
-            <span>OFERTA IMPERDÍVEL DE HOJE</span>
+            <span>OFERTA DE LANÇAMENTO</span>
           </div>
 
           {/* Micro Value Chips */}
@@ -151,7 +154,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
           {/* Price Anchor */}
           <div className="mb-3">
             <span className="text-[11px] sm:text-xs text-slate-400 line-through font-bold block">
-              De R$ 97,00 por apenas:
+              De R$ 197,00 por apenas:
             </span>
             <div className="text-4xl sm:text-5xl font-black text-[#FF3B69] tracking-tight leading-none my-0.5">
               R$ 37,90
@@ -166,7 +169,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
             onClick={onCtaClick}
             className="w-full py-3.5 sm:py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-lg shadow-rose-300 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer mb-2"
           >
-            <span>QUERO DESTRAVAR A LEITURA DO MEU FILHO!</span>
+            <span>QUERO O KIT COMPLETO + 6 BÔNUS (R$ 37,90)</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
 

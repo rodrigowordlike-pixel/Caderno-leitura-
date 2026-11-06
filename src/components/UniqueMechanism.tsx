@@ -178,11 +178,12 @@ export const UniqueMechanism: React.FC = () => {
             
             {/* Left: Documentary Image of Child Reading */}
             <div className="lg:col-span-5 flex flex-col items-center">
-              <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-amber-200 bg-white">
+              <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-amber-200 bg-white max-w-[320px] w-full">
                 <img
                   src={ASSETS.motherChildReading}
                   alt="Mãe e filho lendo juntos felizes com o Livro da Leitura"
-                  className="w-full h-64 sm:h-80 object-cover"
+                  className="w-full h-auto object-cover select-none"
+                  loading="lazy"
                 />
               </div>
             </div>

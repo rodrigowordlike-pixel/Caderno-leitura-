@@ -7,7 +7,7 @@ export const ASSETS = {
   comboMockup: '/assets/aistudio/IMG_8859_e57429e4.jpeg',
   // Real demonstration VSL video provided by user
   vslVideo: '/assets/aistudio/4841773d-a373-43b6-997a-ff4046d58cd3_36949721.mov',
-  motherChildReading: '/src/assets/images/mae_filho_lendo_1793501682561.jpg',
+  motherChildReading: '/assets/aistudio/IMG_8942_875dcae4.jpeg',
   bonusMockup: '/src/assets/images/bonus_materiais_mockup_1793501682920.jpg',
 };
 
