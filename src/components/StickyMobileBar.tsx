@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Flame } from 'lucide-react';
+import { CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/landingData';
 
 interface StickyMobileBarProps {
-  onCtaClick: () => void;
+  onCtaClick?: () => void;
 }
 
 export const StickyMobileBar: React.FC<StickyMobileBarProps> = ({ onCtaClick }) => {
@@ -32,17 +33,21 @@ export const StickyMobileBar: React.FC<StickyMobileBarProps> = ({ onCtaClick }) 
           <span>80% OFF • Lote Final</span>
         </div>
         <div className="text-xs font-black text-slate-900 leading-tight">
-          Apenas <span className="text-emerald-600 text-sm">R$ 37,90</span>
+          Apenas <span className="text-[#FF3B69] text-sm">R$ 37,90</span>
         </div>
       </div>
 
-      <button
-        onClick={onCtaClick}
-        className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs shadow-md flex items-center gap-1.5 shrink-0 active:scale-95 cursor-pointer"
+      <a
+        href={CHECKOUT_URLS.combo}
+        onClick={(e) => {
+          e.preventDefault();
+          trackAndRedirectToCheckout('combo');
+        }}
+        className="px-4 py-2.5 rounded-xl bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-xs shadow-md flex items-center gap-1.5 shrink-0 active:scale-95 cursor-pointer text-center"
       >
         <span>Garantir Combo</span>
         <ArrowRight className="w-3.5 h-3.5" />
-      </button>
+      </a>
     </div>
   );
 };

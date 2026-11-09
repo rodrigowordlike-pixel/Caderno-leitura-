@@ -34,6 +34,16 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     e.preventDefault();
     if (!customerEmail) return;
 
+    // Meta Pixel event: Purchase
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      const numericValue = planId === 'basic' ? 22.90 : planId === 'combo-downsell' ? 34.10 : 37.90;
+      (window as any).fbq('track', 'Purchase', {
+        value: numericValue,
+        currency: 'BRL',
+        content_name: planTitles[planId],
+      });
+    }
+
     setIsRedirecting(true);
     setTimeout(() => {
       setIsRedirecting(false);

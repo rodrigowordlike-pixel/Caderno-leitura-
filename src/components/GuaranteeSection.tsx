@@ -1,8 +1,9 @@
 import React from 'react';
 import { ShieldCheck, Award, ArrowRight, Download, HeartHandshake, RotateCcw, Lock } from 'lucide-react';
+import { CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/landingData';
 
 interface GuaranteeSectionProps {
-  onDirectCta: () => void;
+  onDirectCta?: () => void;
 }
 
 export const GuaranteeSection: React.FC<GuaranteeSectionProps> = ({ onDirectCta }) => {
@@ -80,13 +81,17 @@ export const GuaranteeSection: React.FC<GuaranteeSectionProps> = ({ onDirectCta 
 
           {/* Action Button & Trust Seal */}
           <div className="text-center pt-2">
-            <button
-              onClick={onDirectCta}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-sm sm:text-base shadow-lg hover:shadow-xl transition-all active:scale-95 cursor-pointer"
+            <a
+              href={CHECKOUT_URLS.combo}
+              onClick={(e) => {
+                e.preventDefault();
+                trackAndRedirectToCheckout('combo');
+              }}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-sm sm:text-base shadow-lg hover:shadow-xl transition-all active:scale-95 cursor-pointer text-center"
             >
               <span>QUERO TESTAR POR 7 DIAS COM RISCO ZERO</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </a>
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-slate-500 mt-4">
               <span className="flex items-center gap-1 font-medium">

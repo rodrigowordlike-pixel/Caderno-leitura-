@@ -9,7 +9,7 @@ import {
   Sparkles,
   Zap
 } from 'lucide-react';
-import { ASSETS } from '../data/landingData';
+import { ASSETS, CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/landingData';
 import { DownsellModal } from './DownsellModal';
 
 interface PricingTableProps {
@@ -36,22 +36,24 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleBasicClick = () => {
-    setIsDownsellOpen(true);
+  const handleBasicClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    trackAndRedirectToCheckout('basic');
   };
 
-  const handleComboClick = () => {
-    onCheckout('combo', 'R$ 37,90');
+  const handleComboClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    trackAndRedirectToCheckout('combo');
   };
 
   const handleAcceptUpgrade = () => {
     setIsDownsellOpen(false);
-    onCheckout('combo-downsell', 'R$ 34,10');
+    trackAndRedirectToCheckout('combo');
   };
 
   const handleContinueBasic = () => {
     setIsDownsellOpen(false);
-    onCheckout('basic', 'R$ 22,90');
+    trackAndRedirectToCheckout('basic');
   };
 
   // Exact 8 bullet points requested in user reference
@@ -179,12 +181,13 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
 
           {/* 3D Action Button */}
           <div className="mt-5">
-            <button
+            <a
+              href={CHECKOUT_URLS.combo}
               onClick={handleComboClick}
               className="w-full py-4 sm:py-5 px-6 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-base sm:text-lg uppercase tracking-wider shadow-xl shadow-rose-200 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all text-center cursor-pointer flex items-center justify-center gap-2"
             >
               <span>QUERO O PACOTE PRÊMIO</span>
-            </button>
+            </a>
             <p className="text-center text-slate-400 text-xs font-medium mt-2">
               Acesso liberado em minutos
             </p>
@@ -258,12 +261,13 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
             <span className="text-2xl sm:text-3xl font-black text-slate-900">R$ 22,90</span>
           </div>
 
-          <button
+          <a
+            href={CHECKOUT_URLS.basic}
             onClick={handleBasicClick}
-            className="w-full py-3 px-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs sm:text-sm transition-all text-center cursor-pointer active:scale-95 shadow-xs"
+            className="w-full py-3 px-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs sm:text-sm transition-all text-center cursor-pointer active:scale-95 shadow-xs block"
           >
             QUERO A OPÇÃO BÁSICA POR R$ 22,90
-          </button>
+          </a>
         </div>
 
         {/* Payment Methods Footer Strip */}

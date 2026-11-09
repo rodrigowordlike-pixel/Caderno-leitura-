@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Star, ArrowRight, ShieldCheck, ChevronDown, Lock, Zap, Volume2, Sparkles, CheckCircle2 } from 'lucide-react';
-import { ASSETS } from '../data/landingData';
+import { ASSETS, CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/landingData';
 
 interface HeroSectionProps {
-  onCtaClick: () => void;
+  onCtaClick?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
@@ -179,13 +179,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
           </div>
 
           {/* Aggressive 3D CTA Button */}
-          <button
-            onClick={onCtaClick}
-            className="w-full py-3.5 sm:py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-lg shadow-rose-300 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer mb-2"
+          <a
+            href={CHECKOUT_URLS.combo}
+            onClick={(e) => {
+              e.preventDefault();
+              trackAndRedirectToCheckout('combo');
+            }}
+            className="w-full py-3.5 sm:py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-lg shadow-rose-300 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer mb-2 text-center"
           >
             <span>QUERO O KIT COMPLETO + 6 BÔNUS (R$ 37,90)</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
+          </a>
 
           {/* Security & Guarantee Seals */}
           <div className="flex items-center justify-around text-[10px] sm:text-xs text-slate-500 pt-2 border-t border-slate-100">

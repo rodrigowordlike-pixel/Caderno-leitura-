@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HeroSection } from './components/HeroSection';
 import { ParentChecklistSection } from './components/ParentChecklistSection';
 import { UniqueMechanism } from './components/UniqueMechanism';
@@ -8,29 +8,16 @@ import { PricingTable } from './components/PricingTable';
 import { GuaranteeSection } from './components/GuaranteeSection';
 import { FaqSection } from './components/FaqSection';
 import { SalesToasts } from './components/SalesToasts';
-import { CheckoutModal } from './components/CheckoutModal';
+import { StickyMobileBar } from './components/StickyMobileBar';
 import { Footer } from './components/Footer';
+import { trackAndRedirectToCheckout } from './data/landingData';
 
 export default function App() {
-  const [checkoutModal, setCheckoutModal] = useState<{
-    isOpen: boolean;
-    planId: 'basic' | 'combo' | 'combo-downsell';
-    price: string;
-  }>({
-    isOpen: false,
-    planId: 'combo',
-    price: 'R$ 37,90',
-  });
-
   const handleOpenCheckout = (
     planId: 'basic' | 'combo' | 'combo-downsell',
-    price: string
+    _price?: string
   ) => {
-    setCheckoutModal({
-      isOpen: true,
-      planId,
-      price,
-    });
+    trackAndRedirectToCheckout(planId === 'basic' ? 'basic' : 'combo');
   };
 
   return (
@@ -67,13 +54,8 @@ export default function App() {
       {/* Pop-up de Compras Recentes Ultradiscreto no Canto */}
       <SalesToasts />
 
-      {/* Modal de Checkout (Acionado apenas no clique) */}
-      <CheckoutModal
-        isOpen={checkoutModal.isOpen}
-        onClose={() => setCheckoutModal((prev) => ({ ...prev, isOpen: false }))}
-        planId={checkoutModal.planId}
-        price={checkoutModal.price}
-      />
+      {/* Barra Fixa Flutuante no Mobile */}
+      <StickyMobileBar />
     </div>
   );
 }

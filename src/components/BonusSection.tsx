@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import { CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/landingData';
 
 export const COMPACT_BONUSES = [
   {
@@ -132,8 +133,12 @@ export const BonusSection: React.FC = () => {
           </div>
 
           <a
-            href="#precos"
-            className="w-full py-3 px-5 rounded-xl bg-gradient-to-r from-emerald-600 via-[#00B050] to-emerald-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer uppercase tracking-wider"
+            href={CHECKOUT_URLS.combo}
+            onClick={(e) => {
+              e.preventDefault();
+              trackAndRedirectToCheckout('combo');
+            }}
+            className="w-full py-3 px-5 rounded-xl bg-gradient-to-r from-emerald-600 via-[#00B050] to-emerald-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer uppercase tracking-wider text-center"
           >
             <span>QUERO GARANTIR TODOS OS BÔNUS POR R$ 37,90</span>
           </a>
