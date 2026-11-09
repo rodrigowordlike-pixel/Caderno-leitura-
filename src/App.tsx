@@ -8,7 +8,6 @@ import { PricingTable } from './components/PricingTable';
 import { GuaranteeSection } from './components/GuaranteeSection';
 import { FaqSection } from './components/FaqSection';
 import { SalesToasts } from './components/SalesToasts';
-import { StickyMobileBar } from './components/StickyMobileBar';
 import { Footer } from './components/Footer';
 import { trackAndRedirectToCheckout } from './data/landingData';
 
@@ -53,9 +52,6 @@ export default function App() {
 
       {/* Pop-up de Compras Recentes Ultradiscreto no Canto */}
       <SalesToasts />
-
-      {/* Barra Fixa Flutuante no Mobile */}
-      <StickyMobileBar />
     </div>
   );
 }
