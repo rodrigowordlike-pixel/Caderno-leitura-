@@ -98,7 +98,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
         </div>
 
         {/* ============================================================== */}
-        {/* 1. MAIN HIGHLIGHTED OFFER CARD (PACOTE PRÊMIO - R$ 37,90)      */}
+        {/* 1. MAIN HIGHLIGHTED OFFER CARD (PACOTE PREMIUM - R$ 37,90)     */}
         {/* EXACT REFERENCE DESIGN FROM image_cdef88c2.png & image_2de26706 */}
         {/* ============================================================== */}
         <div className="relative bg-white rounded-[36px] border-2 border-[#FF3B69] p-5 sm:p-8 shadow-2xl shadow-rose-200/50 max-w-lg mx-auto flex flex-col justify-between transition-all">
@@ -113,7 +113,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
             {/* Header */}
             <div className="text-center mt-2 mb-3">
               <p className="text-[#FF3B69] text-xs sm:text-sm font-black uppercase tracking-widest">
-                PACOTE PRÊMIO
+                PACOTE PREMIUM
               </p>
               <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1">
                 Kit + 6 Bônus Exclusivos
@@ -186,7 +186,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
               onClick={handleComboClick}
               className="w-full py-4 sm:py-5 px-6 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-base sm:text-lg uppercase tracking-wider shadow-xl shadow-rose-200 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all text-center cursor-pointer flex items-center justify-center gap-2"
             >
-              <span>QUERO O PACOTE PRÊMIO</span>
+              <span>QUERO O PACOTE PREMIUM</span>
             </a>
             <p className="text-center text-slate-400 text-xs font-medium mt-2">
               Acesso liberado em minutos

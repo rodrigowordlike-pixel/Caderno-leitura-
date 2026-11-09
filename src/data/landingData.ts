@@ -19,7 +19,7 @@ export const CHECKOUT_URLS = {
 export const trackAndRedirectToCheckout = (plan: 'combo' | 'basic') => {
   const url = plan === 'basic' ? CHECKOUT_URLS.basic : CHECKOUT_URLS.combo;
   const value = plan === 'basic' ? 22.90 : 37.90;
-  const contentName = plan === 'basic' ? 'Opção Básica - R$ 22,90' : 'Pacote Prêmio Kit Completo - R$ 37,90';
+  const contentName = plan === 'basic' ? 'Opção Básica - R$ 22,90' : 'Pacote Premium Kit Completo - R$ 37,90';
 
   if (typeof window !== 'undefined' && (window as any).fbq) {
     try {
