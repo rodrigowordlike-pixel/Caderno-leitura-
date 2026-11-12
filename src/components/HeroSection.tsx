@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Star, ArrowRight, ShieldCheck, ChevronDown, Lock, Zap, Volume2, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Star, ArrowRight, ShieldCheck, ChevronDown, Lock, Zap, Volume2, Sparkles, CheckCircle2, RotateCcw } from 'lucide-react';
 import { ASSETS, CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/landingData';
 
 interface HeroSectionProps {
@@ -8,14 +8,70 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
   const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasEnded, setHasEnded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const startVideoMuted = () => {
+    if (videoRef.current) {
+      const v = videoRef.current;
+      v.defaultMuted = true;
+      v.muted = true;
+      v.setAttribute('muted', '');
+      v.setAttribute('playsinline', '');
+      v.setAttribute('webkit-playsinline', '');
+      v.play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => {
+          console.log('Autoplay prevented by browser:', err);
+          setIsPlaying(false);
+        });
+    }
+  };
+
+  React.useEffect(() => {
+    startVideoMuted();
+
+    const handleFirstTouch = () => {
+      if (videoRef.current && videoRef.current.paused && !hasEnded) {
+        startVideoMuted();
+      }
+    };
+    window.addEventListener('touchstart', handleFirstTouch, { passive: true });
+    window.addEventListener('click', handleFirstTouch, { passive: true });
+
+    return () => {
+      window.removeEventListener('touchstart', handleFirstTouch);
+      window.removeEventListener('click', handleFirstTouch);
+    };
+  }, []);
 
   const handleUnmute = () => {
     if (videoRef.current) {
-      videoRef.current.muted = false;
-      videoRef.current.currentTime = 0;
-      videoRef.current.play();
-      setIsMuted(false);
+      const v = videoRef.current;
+      v.muted = false;
+      v.play()
+        .then(() => {
+          setIsMuted(false);
+          setIsPlaying(true);
+        })
+        .catch((err) => console.log('Play on click error:', err));
+    }
+  };
+
+  const handleReplay = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) e.stopPropagation();
+    if (videoRef.current) {
+      const v = videoRef.current;
+      v.currentTime = 0;
+      v.muted = false;
+      v.play()
+        .then(() => {
+          setIsMuted(false);
+          setHasEnded(false);
+          setIsPlaying(true);
+        })
+        .catch((err) => console.log('Replay error:', err));
     }
   };
 
@@ -51,38 +107,76 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
           </div>
 
           {/* Video Container Frame */}
-          <div className="relative rounded-b-[28px] overflow-hidden shadow-2xl shadow-rose-500/35 border-4 border-slate-950 bg-slate-950 aspect-[9/16] group mx-auto">
-            
+          <div
+            onClick={hasEnded ? handleReplay : isMuted ? handleUnmute : undefined}
+            onTouchStart={hasEnded ? handleReplay : isMuted ? handleUnmute : undefined}
+            className={`relative rounded-b-[28px] overflow-hidden shadow-2xl shadow-rose-500/35 border-4 border-slate-950 bg-slate-950 aspect-[9/16] group mx-auto ${
+              hasEnded || isMuted ? 'cursor-pointer' : ''
+            }`}
+          >
             <video
               ref={videoRef}
               src={ASSETS.vslVideo}
               autoPlay
-              muted={isMuted}
+              muted
               playsInline
-              loop
-              controls={!isMuted}
+              controls={false}
               preload="auto"
-              className="w-full h-full object-cover"
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              onEnded={() => {
+                setHasEnded(true);
+                setIsPlaying(false);
+              }}
+              onLoadedData={() => {
+                if (videoRef.current && !hasEnded) {
+                  videoRef.current.defaultMuted = true;
+                  videoRef.current.muted = true;
+                  videoRef.current.play().catch(() => {});
+                }
+              }}
+              className="w-full h-full object-cover pointer-events-none"
             />
 
-            {/* Muted Autoplay Hook Overlay */}
-            {isMuted && (
-              <button
-                onClick={handleUnmute}
+            {/* Muted / Touch-to-Play Hook Overlay */}
+            {!hasEnded && isMuted && (
+              <div
                 className="absolute inset-0 w-full h-full bg-slate-950/40 backdrop-blur-[1px] flex flex-col items-center justify-center p-4 text-white cursor-pointer transition-all hover:bg-slate-950/30 group-hover:scale-[1.01]"
-                aria-label="Ligar o som do vídeo de demonstração"
               >
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-18 h-18 sm:w-22 sm:h-22 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-bounce">
-                    <Volume2 className="w-9 h-9 sm:w-11 sm:h-11" />
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-bounce">
+                    <Volume2 className="w-10 h-10 sm:w-12 sm:h-12 ml-1" />
                   </div>
                   
-                  <div className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-5 py-2.5 rounded-full shadow-2xl border border-white/30 flex items-center gap-2">
+                  <div className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-5 py-3 rounded-full shadow-2xl border border-white/30 flex items-center gap-2">
                     <Volume2 className="w-4 h-4 animate-pulse" />
                     <span>TOQUE PARA OUVIR COM SOM</span>
                   </div>
                 </div>
-              </button>
+              </div>
+            )}
+
+            {/* Replay Overlay on End */}
+            {hasEnded && (
+              <div
+                onClick={handleReplay}
+                onTouchStart={handleReplay}
+                className="absolute inset-0 w-full h-full bg-slate-950/75 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-white cursor-pointer transition-all z-20"
+              >
+                <div className="flex flex-col items-center gap-4 text-center">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-bounce">
+                    <RotateCcw className="w-10 h-10 sm:w-12 sm:h-12" />
+                  </div>
+                  
+                  <button
+                    onClick={handleReplay}
+                    className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-6 py-3.5 rounded-full shadow-2xl border border-white/30 flex items-center gap-2.5 cursor-pointer"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                    <span>VER A EXPLICAÇÃO NOVAMENTE</span>
+                  </button>
+                </div>
+              </div>
             )}
           </div>
 
