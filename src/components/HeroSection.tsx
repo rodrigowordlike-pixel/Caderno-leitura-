@@ -99,7 +99,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
           <span className="text-[#FF3B69] bg-rose-100/80 px-1.5 py-0.5 rounded-lg border border-rose-200 inline-block">
             ler as primeiras frases sozinho
           </span>{' '}
-          em poucos dias — sem gritos e sem sofrimento
+          em poucos dias, sem gritos e sem sofrimento
         </h1>
 
         {/* Subheadline Hook - Emotional Urgency */}
@@ -291,7 +291,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
               ))}
             </div>
             <span className="text-[11px] sm:text-xs font-extrabold text-slate-800">
-              4,9/5 — Mais de 500 mães aprovaram
+              4,9/5 · Mais de 500 mães aprovaram
             </span>
           </div>
 
