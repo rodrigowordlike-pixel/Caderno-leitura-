@@ -76,41 +76,53 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
   };
 
   return (
-    <section className="relative pt-6 pb-8 sm:pt-10 sm:pb-12 bg-gradient-to-b from-rose-50/70 via-white to-amber-50/30 border-b border-slate-100 overflow-hidden">
-      
-      {/* Subtle Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-80 bg-gradient-to-b from-rose-200/30 via-amber-100/20 to-transparent blur-3xl pointer-events-none -z-10" />
+    <section className="relative bg-gradient-to-b from-rose-50/70 via-white to-amber-50/30 border-b border-slate-100 overflow-hidden">
+      {/* Top Ad-Congruence Urgency Strip (does not overlap content) */}
+      <div className="bg-slate-950 text-white py-2 px-3 text-center text-[11px] sm:text-xs font-extrabold tracking-wide border-b border-rose-500/40">
+        <span>CONDIÇÃO DO ANÚNCIO:</span>{' '}
+        <span className="text-[#FF5C83]">8 Cadernos + 6 Bônus com 80% OFF liberados hoje</span>
+      </div>
 
-      <div className="max-w-3xl mx-auto px-3.5 sm:px-6 text-center">
+      {/* Subtle Background Glow */}
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-full max-w-7xl h-80 bg-gradient-to-b from-rose-200/30 via-amber-100/20 to-transparent blur-3xl pointer-events-none -z-10" />
+
+      <div className="max-w-3xl mx-auto px-3.5 pt-3.5 pb-8 sm:px-6 sm:pt-7 sm:pb-12 text-center">
         
-        {/* Main Headline - Ultra Human, Persuasive, Direct */}
-        <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] tracking-tight mb-3 [text-wrap:balance]">
-          O método simples de 15 minutos que faz crianças de 4 a 8 anos lerem as primeiras palavras{' '}
-          <span className="text-[#FF3B69] bg-rose-100/80 px-2 py-0.5 rounded-xl border border-rose-200 inline-block font-black">
-            sem choro e sem decoreba
-          </span>
+        {/* Direct Ad Pain Kicker */}
+        <p className="text-xs sm:text-sm font-extrabold text-[#E11D48] mb-1.5 tracking-tight">
+          A hora do dever de casa virou motivo de briga e choro aí na sua casa?
+        </p>
+
+        {/* Main Headline - Aggressive, Ad-Congruent, Immediate Transformation */}
+        <h1 className="text-[22px] sm:text-4xl md:text-[44px] font-black text-slate-900 leading-[1.13] tracking-tight mb-2 [text-wrap:balance]">
+          Faça seu filho{' '}
+          <span className="text-[#FF3B69] bg-rose-100/80 px-1.5 py-0.5 rounded-lg border border-rose-200 inline-block">
+            ler as primeiras frases sozinho
+          </span>{' '}
+          em poucos dias — sem gritos e sem sofrimento
         </h1>
 
-        {/* Subheadline Hook */}
-        <p className="text-xs sm:text-base font-extrabold text-slate-700 max-w-2xl mx-auto leading-relaxed mb-4 [text-wrap:balance]">
-          Assista ao vídeo abaixo e veja na prática como os <strong>8 Cadernos Ilustrados</strong> destravaram a leitura de crianças que antes choravam na hora da lição.
+        {/* Subheadline Hook - Emotional Urgency */}
+        <p className="text-xs sm:text-base font-bold text-slate-700 max-w-2xl mx-auto leading-snug mb-3.5 [text-wrap:balance]">
+          Cada semana travado na leitura aumenta o bloqueio e a vergonha na escola. Assista ao vídeo e libere o{' '}
+          <strong className="text-slate-900 font-black">Kit com 8 Cadernos</strong> que já destravou +500 crianças:
         </p>
 
         {/* ============================================================== */}
-        {/* VSL VIDEO PLAYER                                               */}
+        {/* COMPACT ABOVE-THE-FOLD VSL VIDEO PLAYER                        */}
         {/* ============================================================== */}
-        <div className="max-w-[310px] sm:max-w-md mx-auto mb-6">
+        <div className="max-w-[230px] sm:max-w-[300px] mx-auto mb-3.5">
           
-          {/* Direct Human Callout */}
-          <div className="bg-slate-900 text-white rounded-t-2xl py-2 px-3 text-[11px] sm:text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 border-x-4 border-t-4 border-slate-900 shadow-md">
-            <span>▼ Veja a demonstração na prática:</span>
+          {/* Direct Callout Header */}
+          <div className="bg-slate-900 text-white rounded-t-2xl py-1.5 px-3 text-[10.5px] sm:text-xs font-extrabold uppercase tracking-wider flex items-center justify-center gap-1.5 border-x-4 border-t-4 border-slate-900 shadow-sm">
+            <span>▼ Veja o caderno por dentro:</span>
           </div>
 
-          {/* Video Container Frame */}
+          {/* Video Container Frame (Sized so Headline + Video + CTA fit on 1st mobile screen) */}
           <div
             onClick={hasEnded ? handleReplay : isMuted ? handleUnmute : undefined}
             onTouchStart={hasEnded ? handleReplay : isMuted ? handleUnmute : undefined}
-            className={`relative rounded-b-[28px] overflow-hidden shadow-2xl shadow-rose-500/35 border-4 border-slate-950 bg-slate-950 aspect-[9/16] group mx-auto ${
+            className={`relative rounded-b-[24px] overflow-hidden shadow-xl shadow-rose-500/30 border-4 border-slate-950 bg-slate-950 aspect-[9/14] sm:aspect-[9/16] max-h-[310px] sm:max-h-[430px] w-full group mx-auto ${
               hasEnded || isMuted ? 'cursor-pointer' : ''
             }`}
           >
@@ -141,15 +153,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
             {/* Muted / Touch-to-Play Hook Overlay */}
             {!hasEnded && isMuted && (
               <div
-                className="absolute inset-0 w-full h-full bg-slate-950/40 backdrop-blur-[1px] flex flex-col items-center justify-center p-4 text-white cursor-pointer transition-all hover:bg-slate-950/30 group-hover:scale-[1.01]"
+                className="absolute inset-0 w-full h-full bg-slate-950/35 backdrop-blur-[1px] flex flex-col items-center justify-center p-3 text-white cursor-pointer transition-all hover:bg-slate-950/25"
               >
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-bounce">
-                    <Volume2 className="w-10 h-10 sm:w-12 sm:h-12 ml-1" />
+                <div className="flex flex-col items-center gap-2.5">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-bounce">
+                    <Volume2 className="w-8 h-8 sm:w-10 sm:h-10 ml-0.5" />
                   </div>
                   
-                  <div className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-5 py-3 rounded-full shadow-2xl border border-white/30 flex items-center gap-2">
-                    <Volume2 className="w-4 h-4 animate-pulse" />
+                  <div className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-[11px] sm:text-xs uppercase tracking-wider px-4 py-2 rounded-full shadow-2xl border border-white/30 flex items-center gap-1.5 whitespace-nowrap">
+                    <Volume2 className="w-3.5 h-3.5 animate-pulse" />
                     <span>TOQUE PARA OUVIR COM SOM</span>
                   </div>
                 </div>
@@ -163,62 +175,86 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
                 onTouchStart={handleReplay}
                 className="absolute inset-0 w-full h-full bg-slate-950/75 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-white cursor-pointer transition-all z-20"
               >
-                <div className="flex flex-col items-center gap-4 text-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-bounce">
-                    <RotateCcw className="w-10 h-10 sm:w-12 sm:h-12" />
+                <div className="flex flex-col items-center gap-3 text-center">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-bounce">
+                    <RotateCcw className="w-8 h-8 sm:w-10 sm:h-10" />
                   </div>
                   
                   <button
                     onClick={handleReplay}
-                    className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-6 py-3.5 rounded-full shadow-2xl border border-white/30 flex items-center gap-2.5 cursor-pointer"
+                    className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-[11px] sm:text-xs uppercase tracking-wider px-4 py-2.5 rounded-full shadow-2xl border border-white/30 flex items-center gap-2 cursor-pointer"
                   >
-                    <RotateCcw className="w-4 h-4" />
+                    <RotateCcw className="w-3.5 h-3.5" />
                     <span>VER A EXPLICAÇÃO NOVAMENTE</span>
                   </button>
                 </div>
               </div>
             )}
           </div>
+        </div>
 
-          {/* Key Emotional Reflection & Action Triggers */}
-          <div className="mt-3 bg-gradient-to-br from-rose-50/80 via-white to-amber-50/60 border-2 border-rose-300/80 rounded-2xl p-3.5 sm:p-4 shadow-sm text-left space-y-2.5 text-xs sm:text-sm text-slate-800">
-            <div className="flex items-start gap-2.5">
-              <div className="w-5 h-5 rounded-full bg-rose-100 text-[#FF3B69] flex items-center justify-center shrink-0 mt-0.5 font-black text-xs">
-                ❤️
-              </div>
-              <p className="leading-snug">
-                <strong className="text-slate-900 font-black">Faça isso pelo seu filho:</strong> Dá a ele a alegria de aprender sem trauma e o orgulho de dizer <em>&ldquo;Mamãe, papai, eu consegui ler sozinho!&rdquo;</em>.
-              </p>
-            </div>
+        {/* ============================================================== */}
+        {/* IMMEDIATE FIRST-SCREEN CTA & PRICE ANCHOR (ABOVE THE FOLD!)    */}
+        {/* ============================================================== */}
+        <div className="max-w-md mx-auto mb-5">
+          <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-slate-700 mb-2">
+            <span className="line-through text-slate-400">De R$ 197</span>
+            <span>por apenas</span>
+            <span className="text-xl sm:text-2xl font-black text-[#FF3B69] tabular-nums">R$ 37,90</span>
+            <span className="text-slate-400">·</span>
+            <span className="text-emerald-700 font-extrabold">Acesso Imediato</span>
+          </div>
 
-            <div className="flex items-start gap-2.5">
-              <div className="w-5 h-5 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5 font-black text-xs">
-                🎁
-              </div>
-              <p className="leading-snug">
-                <strong className="text-slate-900 font-black">O melhor presente para o futuro dele:</strong> Não é sobre um PDF, é sobre proteger a autoestima da criança para que ela nunca se sinta inferior na escola.
-              </p>
-            </div>
+          <a
+            href={CHECKOUT_URLS.combo}
+            onClick={(e) => {
+              e.preventDefault();
+              trackAndRedirectToCheckout('combo');
+            }}
+            className="w-full py-3.5 sm:py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wide shadow-xl shadow-rose-500/30 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer text-center"
+          >
+            <span>QUERO DESTRAVAR A LEITURA DO MEU FILHO</span>
+            <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
+          </a>
 
-            <div className="flex items-start gap-2.5">
-              <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-black text-xs">
-                🚀
-              </div>
-              <p className="leading-snug">
-                <strong className="text-slate-900 font-black">Anos à frente dos colegas:</strong> Seu filho sai na frente da maioria das crianças da turma que continuam travadas, gaguejando e atrasadas na leitura.
-              </p>
-            </div>
+          <p className="text-[11px] sm:text-xs font-semibold text-slate-500 mt-2">
+            8 Cadernos em PDF + 6 Bônus Grátis · Receba no e-mail em 1 minuto · Garantia de 7 dias
+          </p>
+        </div>
+
+        {/* Key Emotional Reflection & Action Triggers */}
+        <div className="max-w-md mx-auto mb-5 bg-gradient-to-br from-rose-50/80 via-white to-amber-50/60 border border-rose-200 rounded-2xl p-3.5 sm:p-4 shadow-xs text-left space-y-2.5 text-xs sm:text-sm text-slate-800">
+          <div className="flex items-start gap-2.5">
+            <CheckCircle2 className="w-4 h-4 text-[#FF3B69] shrink-0 mt-0.5" />
+            <p className="leading-snug">
+              <strong className="text-slate-900 font-black">Faça isso pelo seu filho:</strong> Dá a ele a alegria de aprender sem trauma e o orgulho de dizer <em>&ldquo;Mamãe, papai, eu consegui ler sozinho!&rdquo;</em>.
+            </p>
+          </div>
+
+          <div className="flex items-start gap-2.5">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+            <p className="leading-snug">
+              <strong className="text-slate-900 font-black">O melhor presente para o futuro dele:</strong> Proteja a autoestima da criança para que ela nunca se sinta inferior ou atrasada na sala de aula.
+            </p>
+          </div>
+
+          <div className="flex items-start gap-2.5">
+            <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+            <p className="leading-snug">
+              <strong className="text-slate-900 font-black">Anos à frente dos colegas:</strong> Seu filho sai na frente da maioria das crianças da turma que continuam travadas e gaguejando na leitura.
+            </p>
           </div>
         </div>
 
         {/* Product Image Mockup Preview */}
         <div className="max-w-[280px] sm:max-w-md mx-auto mb-5">
-          <div className="rounded-2xl overflow-hidden shadow-md border-2 border-rose-200/80 bg-white p-1.5">
+          <div className="rounded-2xl overflow-hidden shadow-md border border-rose-200/80 bg-white p-1.5">
             <img
               src={ASSETS.heroMockup}
               alt="Kit Completo Meus Cadernos da Leitura - 8 Materiais"
               className="w-full h-auto object-cover block select-none rounded-xl"
               loading="eager"
+              referrerPolicy="no-referrer"
             />
           </div>
         </div>
