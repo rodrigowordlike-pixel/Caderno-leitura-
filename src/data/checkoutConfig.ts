@@ -15,8 +15,27 @@ export const CHECKOUT_URLS = {
   basic: 'https://pay.wiapy.com/EifdeIu3KQr',
 };
 
+export const buildCheckoutUrl = (plan: 'combo' | 'basic'): string => {
+  const baseUrl = plan === 'basic' ? CHECKOUT_URLS.basic : CHECKOUT_URLS.combo;
+  if (typeof window === 'undefined' || !window.location.search) {
+    return baseUrl;
+  }
+  try {
+    const incoming = new URLSearchParams(window.location.search);
+    const target = new URL(baseUrl);
+    incoming.forEach((value, key) => {
+      if (!target.searchParams.has(key)) {
+        target.searchParams.set(key, value);
+      }
+    });
+    return target.toString();
+  } catch {
+    return baseUrl;
+  }
+};
+
 export const trackAndRedirectToCheckout = (plan: 'combo' | 'basic') => {
-  const url = plan === 'basic' ? CHECKOUT_URLS.basic : CHECKOUT_URLS.combo;
+  const url = buildCheckoutUrl(plan);
   const value = plan === 'basic' ? 22.90 : 37.90;
   const contentName = plan === 'basic' ? 'Opção Básica - R$ 22,90' : 'Pacote Premium Kit Completo - R$ 37,90';
 
@@ -32,6 +51,6 @@ export const trackAndRedirectToCheckout = (plan: 'combo' | 'basic') => {
     }
   }
 
-  // Navigate directly to Wiapy checkout
+  // Navigate directly to Wiapy checkout with preserved UTMs/fbclid
   window.location.href = url;
 };

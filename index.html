@@ -15,16 +15,6 @@
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
     <link rel="preload" as="image" href="/assets/optimized/vsl-poster.webp" fetchpriority="high" type="image/webp" />
 
-    <!-- Non-blocking Google Fonts with font-display=swap + instant system font fallback -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
-
     <!-- Meta Pixel Code (Async High-Priority PageView without render blocking) -->
     <script>
       !function(f,b,e,v,n,t,s)
@@ -43,7 +33,7 @@
     <!-- Critical First-Fold Inline CSS: Guarantees < 1.0s FCP & LCP with zero layout shift -->
     <style>
       *,*::before,*::after{box-sizing:border-box}
-      body{margin:0;background:#FBFBFA;color:#1E293B;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+      body{margin:0;background:#FBFBFA;color:#1E293B;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
       .af-sec{background:linear-gradient(180deg,rgba(255,241,242,.7) 0%,#fff 55%,rgba(255,251,235,.3) 100%);border-bottom:1px solid #f1f5f9;overflow:hidden}
       .af-bar{background:#020617;color:#fff;padding:8px 12px;text-align:center;font-size:11px;font-weight:800;letter-spacing:.025em;border-bottom:1px solid rgba(244,63,94,.4)}
       .af-bar span.hl{color:#FF5C83}
@@ -79,6 +69,9 @@
         .af-vsl-frame{aspect-ratio:9/16;max-height:430px}
         .af-play{width:80px;height:80px}
         .af-btn{border-radius:9999px;padding:16px 20px;font-size:16px}
+      }
+      @media(min-width:768px){
+        .af-h1{font-size:44px}
       }
     </style>
   </head>
@@ -136,7 +129,7 @@
             </div>
             <a
               href="https://pay.wiapy.com/PHWcAoOLTjcR"
-              onclick="if(window.fbq){try{fbq('track','InitiateCheckout',{content_name:'Pacote Premium Kit Completo - R$ 37,90',value:37.90,currency:'BRL'});}catch(e){}}"
+              onclick="if(window.fbq){try{fbq('track','InitiateCheckout',{content_name:'Pacote Premium Kit Completo - R$ 37,90',value:37.90,currency:'BRL'});}catch(e){}}if(window.location.search){this.href='https://pay.wiapy.com/PHWcAoOLTjcR'+window.location.search;}"
               class="af-btn"
             >
               <span>QUERO DESTRAVAR A LEITURA DO MEU FILHO</span>
@@ -147,6 +140,9 @@
       </section>
     </div>
 
+    <script>
+      window.addEventListener('load',function(){var l=document.createElement('link');l.rel='dns-prefetch';l.href='https://pay.wiapy.com';document.head.appendChild(l);},{once:true});
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

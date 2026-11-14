@@ -1,11 +1,24 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig} from 'vite';
+import {defineConfig, type Plugin} from 'vite';
+
+function nonBlockingCssPlugin(): Plugin {
+  return {
+    name: 'non-blocking-css',
+    enforce: 'post',
+    transformIndexHtml(html: string) {
+      return html.replace(
+        /<link rel="stylesheet"([^>]*?)href="(\/assets\/[^"]+\.css)"([^>]*)>/g,
+        '<link rel="stylesheet" data-app-css$1href="$2"$3 media="print" onload="this.media=\'all\';window.__appCssReady=true"><noscript><link rel="stylesheet"$1href="$2"$3></noscript>'
+      );
+    },
+  };
+}
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), nonBlockingCssPlugin()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
