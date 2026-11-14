@@ -1,77 +1,122 @@
-import React, { useState, useRef } from 'react';
-import { Star, ArrowRight, ShieldCheck, ChevronDown, Lock, Zap, Volume2, Sparkles, CheckCircle2, RotateCcw } from 'lucide-react';
-import { ASSETS, CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/landingData';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { Star, ArrowRight, ShieldCheck, ChevronDown, Lock, Zap, Volume2, Sparkles, CheckCircle2, RotateCcw, Play } from 'lucide-react';
+import { ASSETS, CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/checkoutConfig';
 
 interface HeroSectionProps {
   onCtaClick?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
+export const HeroSection: React.FC<HeroSectionProps> = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasEnded, setHasEnded] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const wantsSoundRef = useRef(false);
 
-  const startVideoMuted = () => {
-    if (videoRef.current) {
-      const v = videoRef.current;
-      v.defaultMuted = true;
-      v.muted = true;
+  const playVideoElement = useCallback((withSound: boolean) => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.defaultMuted = !withSound;
+    v.muted = !withSound;
+    if (withSound) {
+      v.removeAttribute('muted');
+    } else {
       v.setAttribute('muted', '');
-      v.setAttribute('playsinline', '');
-      v.setAttribute('webkit-playsinline', '');
-      v.play()
-        .then(() => setIsPlaying(true))
-        .catch((err) => {
-          console.log('Autoplay prevented by browser:', err);
-          setIsPlaying(false);
-        });
     }
-  };
+    v.setAttribute('playsinline', '');
+    v.setAttribute('webkit-playsinline', '');
+    v.play()
+      .then(() => {
+        setIsMuted(!withSound);
+        setIsPlaying(true);
+      })
+      .catch(() => {
+        if (withSound) {
+          // Fallback to muted autoplay if browser blocks unmuted play
+          v.defaultMuted = true;
+          v.muted = true;
+          v.setAttribute('muted', '');
+          v.play()
+            .then(() => {
+              setIsMuted(true);
+              setIsPlaying(true);
+            })
+            .catch(() => setIsPlaying(false));
+        } else {
+          setIsPlaying(false);
+        }
+      });
+  }, []);
 
-  React.useEffect(() => {
-    startVideoMuted();
+  useEffect(() => {
+    // True Facade: never download 2.2 MB MP4 during initial critical load (LCP/FCP < 1.0s).
+    // Only mount/load <video> after user interaction OR safely after window.onload + idle.
+    let idleTimer: number | undefined;
+    let loadHandler: (() => void) | undefined;
 
-    const handleFirstTouch = () => {
-      if (videoRef.current && videoRef.current.paused && !hasEnded) {
-        startVideoMuted();
+    const triggerDeferredVideo = () => {
+      setShouldLoadVideo(true);
+    };
+
+    const scheduleAfterLoad = () => {
+      idleTimer = window.setTimeout(triggerDeferredVideo, 4000);
+    };
+
+    if (document.readyState === 'complete') {
+      scheduleAfterLoad();
+    } else {
+      loadHandler = () => scheduleAfterLoad();
+      window.addEventListener('load', loadHandler, { once: true });
+    }
+
+    const onUserEngage = () => {
+      setShouldLoadVideo(true);
+      if (idleTimer !== undefined) {
+        window.clearTimeout(idleTimer);
       }
     };
-    window.addEventListener('touchstart', handleFirstTouch, { passive: true });
-    window.addEventListener('click', handleFirstTouch, { passive: true });
+
+    window.addEventListener('scroll', onUserEngage, { once: true, passive: true });
+    window.addEventListener('touchstart', onUserEngage, { once: true, passive: true });
+    window.addEventListener('pointerdown', onUserEngage, { once: true, passive: true });
 
     return () => {
-      window.removeEventListener('touchstart', handleFirstTouch);
-      window.removeEventListener('click', handleFirstTouch);
+      if (idleTimer !== undefined) window.clearTimeout(idleTimer);
+      if (loadHandler) window.removeEventListener('load', loadHandler);
+      window.removeEventListener('scroll', onUserEngage);
+      window.removeEventListener('touchstart', onUserEngage);
+      window.removeEventListener('pointerdown', onUserEngage);
     };
   }, []);
 
-  const handleUnmute = () => {
+  useEffect(() => {
+    if (shouldLoadVideo && videoRef.current && !hasEnded) {
+      playVideoElement(wantsSoundRef.current);
+    }
+  }, [shouldLoadVideo, hasEnded, playVideoElement]);
+
+  const handleFacadeOrUnmute = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) e.stopPropagation();
+    wantsSoundRef.current = true;
+    if (!shouldLoadVideo) {
+      setShouldLoadVideo(true);
+      return;
+    }
     if (videoRef.current) {
-      const v = videoRef.current;
-      v.muted = false;
-      v.play()
-        .then(() => {
-          setIsMuted(false);
-          setIsPlaying(true);
-        })
-        .catch((err) => console.log('Play on click error:', err));
+      // Unmute seamlessly WITHOUT resetting currentTime
+      playVideoElement(true);
     }
   };
 
   const handleReplay = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e) e.stopPropagation();
+    wantsSoundRef.current = true;
     if (videoRef.current) {
       const v = videoRef.current;
       v.currentTime = 0;
-      v.muted = false;
-      v.play()
-        .then(() => {
-          setIsMuted(false);
-          setHasEnded(false);
-          setIsPlaying(true);
-        })
-        .catch((err) => console.log('Replay error:', err));
+      setHasEnded(false);
+      playVideoElement(true);
     }
   };
 
@@ -109,7 +154,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
         </p>
 
         {/* ============================================================== */}
-        {/* COMPACT ABOVE-THE-FOLD VSL VIDEO PLAYER                        */}
+        {/* COMPACT ABOVE-THE-FOLD VSL FACADE & LAZY VIDEO PLAYER          */}
         {/* ============================================================== */}
         <div className="max-w-[230px] sm:max-w-[300px] mx-auto mb-3.5">
           
@@ -118,50 +163,71 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
             <span>▼ Veja o caderno por dentro:</span>
           </div>
 
-          {/* Video Container Frame (Sized so Headline + Video + CTA fit on 1st mobile screen) */}
+          {/* Video Container Frame (Instant 22KB WebP Facade -> Lazy Streaming MP4) */}
           <div
-            onClick={hasEnded ? handleReplay : isMuted ? handleUnmute : undefined}
-            onTouchStart={hasEnded ? handleReplay : isMuted ? handleUnmute : undefined}
+            onClick={hasEnded ? handleReplay : isMuted ? handleFacadeOrUnmute : undefined}
             className={`relative rounded-b-[24px] overflow-hidden shadow-xl shadow-rose-500/30 border-4 border-slate-950 bg-slate-950 aspect-[9/14] sm:aspect-[9/16] max-h-[310px] sm:max-h-[430px] w-full group mx-auto ${
               hasEnded || isMuted ? 'cursor-pointer' : ''
             }`}
           >
-            <video
-              ref={videoRef}
-              src={ASSETS.vslVideo}
-              autoPlay
-              muted
-              playsInline
-              controls={false}
-              preload="auto"
-              onPlay={() => setIsPlaying(true)}
-              onPause={() => setIsPlaying(false)}
-              onEnded={() => {
-                setHasEnded(true);
-                setIsPlaying(false);
-              }}
-              onLoadedData={() => {
-                if (videoRef.current && !hasEnded) {
-                  videoRef.current.defaultMuted = true;
-                  videoRef.current.muted = true;
-                  videoRef.current.play().catch(() => {});
-                }
-              }}
-              className="w-full h-full object-cover pointer-events-none"
+            {/* Instant WebP Poster Image (Zero black box on load, fast LCP) */}
+            <img
+              src={ASSETS.vslPoster}
+              alt="Demonstração do Kit Meus Cadernos da Leitura"
+              width={384}
+              height={597}
+              fetchPriority="high"
+              loading="eager"
+              decoding="sync"
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 pointer-events-none ${
+                isPlaying ? 'opacity-0' : 'opacity-100'
+              }`}
             />
 
-            {/* Muted / Touch-to-Play Hook Overlay */}
+            {shouldLoadVideo && (
+              <video
+                ref={videoRef}
+                src={ASSETS.vslVideo}
+                poster={ASSETS.vslPoster}
+                autoPlay
+                muted={!wantsSoundRef.current && isMuted}
+                playsInline
+                controls={false}
+                preload="auto"
+                onPlaying={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                onEnded={() => {
+                  setHasEnded(true);
+                  setIsPlaying(false);
+                }}
+                onLoadedData={() => {
+                  if (videoRef.current && !hasEnded && !isPlaying) {
+                    playVideoElement(wantsSoundRef.current);
+                  }
+                }}
+                className="w-full h-full object-cover pointer-events-none"
+              />
+            )}
+
+            {/* Muted / Facade Pulsing Play & Audio Hook Overlay */}
             {!hasEnded && isMuted && (
               <div
-                className="absolute inset-0 w-full h-full bg-slate-950/35 backdrop-blur-[1px] flex flex-col items-center justify-center p-3 text-white cursor-pointer transition-all hover:bg-slate-950/25"
+                className="absolute inset-0 w-full h-full bg-slate-950/30 flex flex-col items-center justify-center p-3 text-white cursor-pointer transition-colors hover:bg-slate-950/20"
               >
                 <div className="flex flex-col items-center gap-2.5">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-bounce">
-                    <Volume2 className="w-8 h-8 sm:w-10 sm:h-10 ml-0.5" />
+                  <div className="relative flex items-center justify-center">
+                    <span className="absolute inset-0 rounded-full bg-[#FF3B69] opacity-55 animate-ping" />
+                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-soft-pulse">
+                      {shouldLoadVideo ? (
+                        <Volume2 className="w-8 h-8 sm:w-10 sm:h-10 ml-0.5" />
+                      ) : (
+                        <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-white ml-1" />
+                      )}
+                    </div>
                   </div>
                   
                   <div className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-[11px] sm:text-xs uppercase tracking-wider px-4 py-2 rounded-full shadow-2xl border border-white/30 flex items-center gap-1.5 whitespace-nowrap">
-                    <Volume2 className="w-3.5 h-3.5 animate-pulse" />
+                    <Volume2 className="w-3.5 h-3.5" />
                     <span>TOQUE PARA OUVIR COM SOM</span>
                   </div>
                 </div>
@@ -172,15 +238,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
             {hasEnded && (
               <div
                 onClick={handleReplay}
-                onTouchStart={handleReplay}
                 className="absolute inset-0 w-full h-full bg-slate-950/75 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-white cursor-pointer transition-all z-20"
               >
                 <div className="flex flex-col items-center gap-3 text-center">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-bounce">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-soft-pulse">
                     <RotateCcw className="w-8 h-8 sm:w-10 sm:h-10" />
                   </div>
                   
                   <button
+                    type="button"
                     onClick={handleReplay}
                     className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-[11px] sm:text-xs uppercase tracking-wider px-4 py-2.5 rounded-full shadow-2xl border border-white/30 flex items-center gap-2 cursor-pointer"
                   >
@@ -253,7 +319,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
               src={ASSETS.heroMockup}
               alt="Kit Completo Meus Cadernos da Leitura - 8 Materiais"
               className="w-full h-auto object-cover block select-none rounded-xl"
-              loading="eager"
+              loading="lazy"
+              decoding="async"
               referrerPolicy="no-referrer"
             />
           </div>

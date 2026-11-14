@@ -6,7 +6,7 @@ export const COMPACT_BONUSES = [
   {
     id: 'bonus-1',
     title: 'Apostila Pré-silábica',
-    image: '/assets/aistudio/IMG_8849_802607ea.jpeg',
+    image: '/assets/optimized/IMG_8849_802607ea.webp',
     description: 'Percepção visual, coordenação e discriminação auditiva.',
     originalPrice: 'De R$ 47,90',
     freeLabel: 'GRÁTIS'
@@ -14,7 +14,7 @@ export const COMPACT_BONUSES = [
   {
     id: 'bonus-2',
     title: 'Silábico Alfabético',
-    image: '/assets/aistudio/IMG_8850_0f38af62.jpeg',
+    image: '/assets/optimized/IMG_8850_0f38af62.webp',
     description: 'Correspondência entre fonemas e grafemas.',
     originalPrice: 'De R$ 47,90',
     freeLabel: 'GRÁTIS'
@@ -22,7 +22,7 @@ export const COMPACT_BONUSES = [
   {
     id: 'bonus-3',
     title: 'Alfabético',
-    image: '/assets/aistudio/IMG_8851_7c1333ed.jpeg',
+    image: '/assets/optimized/IMG_8851_7c1333ed.webp',
     description: 'Compreensão plena e escrita convencional.',
     originalPrice: 'De R$ 47,90',
     freeLabel: 'GRÁTIS'
@@ -30,7 +30,7 @@ export const COMPACT_BONUSES = [
   {
     id: 'bonus-4',
     title: 'Sílabas sem valor',
-    image: '/assets/aistudio/IMG_8852_5d97c54a.jpeg',
+    image: '/assets/optimized/IMG_8852_5d97c54a.webp',
     description: 'Análise fonológica avançada e transição sonora.',
     originalPrice: 'De R$ 29,90',
     freeLabel: 'GRÁTIS'
@@ -38,7 +38,7 @@ export const COMPACT_BONUSES = [
   {
     id: 'bonus-5',
     title: 'Silábicos com valor',
-    image: '/assets/aistudio/IMG_8854_7e02eb0d.jpeg',
+    image: '/assets/optimized/IMG_8854_7e02eb0d.webp',
     description: 'Fixação das vogais e junção correta das sílabas.',
     originalPrice: 'De R$ 29,90',
     freeLabel: 'GRÁTIS'
@@ -46,7 +46,7 @@ export const COMPACT_BONUSES = [
   {
     id: 'bonus-6',
     title: 'Sílabas Complexas',
-    image: '/assets/aistudio/IMG_8853_1f7fa2e3.jpeg',
+    image: '/assets/optimized/IMG_8853_1f7fa2e3.webp',
     description: 'Domínio de encontros consonantais (BRA, TRU, CLI).',
     originalPrice: 'De R$ 29,90',
     freeLabel: 'GRÁTIS'
@@ -93,6 +93,7 @@ export const BonusSection: React.FC = () => {
                     alt={bonus.title}
                     className="w-full h-full object-cover select-none"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
 

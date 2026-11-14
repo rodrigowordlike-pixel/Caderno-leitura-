@@ -184,6 +184,7 @@ export const UniqueMechanism: React.FC = () => {
                   alt="Mãe e filho lendo juntos felizes com o Livro da Leitura"
                   className="w-full h-auto object-cover select-none"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>

@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { HeroSection } from './components/HeroSection';
-import { ParentChecklistSection } from './components/ParentChecklistSection';
-import { UniqueMechanism } from './components/UniqueMechanism';
-import { SocialProofCarousel } from './components/SocialProofCarousel';
-import { BonusSection } from './components/BonusSection';
-import { PricingTable } from './components/PricingTable';
-import { GuaranteeSection } from './components/GuaranteeSection';
-import { FaqSection } from './components/FaqSection';
-import { SalesToasts } from './components/SalesToasts';
-import { Footer } from './components/Footer';
-import { trackAndRedirectToCheckout } from './data/landingData';
+import { trackAndRedirectToCheckout } from './data/checkoutConfig';
+
+const ParentChecklistSection = lazy(() => import('./components/ParentChecklistSection').then((m) => ({ default: m.ParentChecklistSection })));
+const UniqueMechanism = lazy(() => import('./components/UniqueMechanism').then((m) => ({ default: m.UniqueMechanism })));
+const SocialProofCarousel = lazy(() => import('./components/SocialProofCarousel').then((m) => ({ default: m.SocialProofCarousel })));
+const BonusSection = lazy(() => import('./components/BonusSection').then((m) => ({ default: m.BonusSection })));
+const PricingTable = lazy(() => import('./components/PricingTable').then((m) => ({ default: m.PricingTable })));
+const GuaranteeSection = lazy(() => import('./components/GuaranteeSection').then((m) => ({ default: m.GuaranteeSection })));
+const FaqSection = lazy(() => import('./components/FaqSection').then((m) => ({ default: m.FaqSection })));
+const SalesToasts = lazy(() => import('./components/SalesToasts').then((m) => ({ default: m.SalesToasts })));
+const Footer = lazy(() => import('./components/Footer').then((m) => ({ default: m.Footer })));
 
 export default function App() {
   const handleOpenCheckout = (
@@ -22,36 +23,37 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-[#FBFBFA] text-[#1E293B]">
       <main className="flex-1">
-        {/* 1. HERO SECTION (Com Mini-Oferta Direta de Alta Conversão) */}
+        {/* 1. HERO SECTION */}
         <HeroSection onCtaClick={() => handleOpenCheckout('combo', 'R$ 37,90')} />
 
-        {/* 2. EMPATIA DAS MÃES (Toda mãe que passa por isso se sente impotente) */}
-        <ParentChecklistSection />
+        <Suspense fallback={null}>
+          {/* 2. EMPATIA DAS MÃES */}
+          <ParentChecklistSection />
 
-        {/* 3. MECANISMO ÚNICO & CARROSSEL DE ATIVIDADES REAIS */}
-        <UniqueMechanism />
+          {/* 3. MECANISMO ÚNICO & CARROSSEL DE ATIVIDADES REAIS */}
+          <UniqueMechanism />
 
-        {/* 4. PROVA SOCIAL FORTE (Carrossel Estilo Mensagens Reais de WhatsApp) */}
-        <SocialProofCarousel />
+          {/* 4. PROVA SOCIAL FORTE */}
+          <SocialProofCarousel />
 
-        {/* 6. BÔNUS DE ALTO VALOR PERCEBIDO (5 Bônus com Valor Riscado) */}
-        <BonusSection />
+          {/* 6. BÔNUS DE ALTO VALOR PERCEBIDO */}
+          <BonusSection />
 
-        {/* 7. TABELA DE PREÇOS COM ANCORAGEM AGRESSIVA (Inicial vs 8 Cadernos) */}
-        <PricingTable onCheckout={handleOpenCheckout} />
+          {/* 7. TABELA DE PREÇOS */}
+          <PricingTable onCheckout={handleOpenCheckout} />
 
-        {/* 8. GARANTIA INCONDICIONAL DE 7 DIAS (Risco Zero em 3 Passos) */}
-        <GuaranteeSection onDirectCta={() => handleOpenCheckout('combo', 'R$ 37,90')} />
+          {/* 8. GARANTIA INCONDICIONAL DE 7 DIAS */}
+          <GuaranteeSection onDirectCta={() => handleOpenCheckout('combo', 'R$ 37,90')} />
 
-        {/* 9. FAQ (Dúvidas Frequentes em Accordion Sanfonado) */}
-        <FaqSection />
+          {/* 9. FAQ */}
+          <FaqSection />
+        </Suspense>
       </main>
 
-      {/* Footer */}
-      <Footer />
-
-      {/* Pop-up de Compras Recentes Ultradiscreto no Canto */}
-      <SalesToasts />
+      <Suspense fallback={null}>
+        <Footer />
+        <SalesToasts />
+      </Suspense>
     </div>
   );
 }

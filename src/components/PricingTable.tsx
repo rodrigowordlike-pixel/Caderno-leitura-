@@ -128,6 +128,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
                   alt="Kit Completo Meus Cadernos da Leitura + 6 Bônus Exclusivos"
                   className="w-full h-auto object-contain select-none"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -236,6 +237,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
                 alt="8 Cadernos de Leitura"
                 className="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="text-xs text-slate-600 space-y-1">

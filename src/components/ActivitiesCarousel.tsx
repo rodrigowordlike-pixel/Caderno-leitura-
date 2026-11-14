@@ -3,61 +3,61 @@ import { ChevronLeft, ChevronRight, Sparkles, BookOpen } from 'lucide-react';
 
 export const ACTIVITY_IMAGES = [
   {
-    src: '/assets/aistudio/IMG_8848_bae3816b.jpeg',
+    src: '/assets/optimized/IMG_8848_bae3816b.webp',
     title: 'A Galinha Pintadinha',
     tag: 'Sons, Sílabas & Palavras',
     description: 'Associação sonora com quebra de sílabas visuais e leitura guiada',
   },
   {
-    src: '/assets/aistudio/IMG_8847_4e1df6d0.jpeg',
+    src: '/assets/optimized/IMG_8847_4e1df6d0.webp',
     title: 'O Gato Guto',
     tag: 'Frases Guiadas com Estrelas',
     description: 'Pequenas frases com vocabulário progressivo e ritmo natural',
   },
   {
-    src: '/assets/aistudio/IMG_8846_e57eceb1.jpeg',
+    src: '/assets/optimized/IMG_8846_e57eceb1.webp',
     title: 'O Laço Rosa',
     tag: 'Ritmo & Entonação',
     description: 'História em versos curtos para a criança ler sem pausar mecanicamente',
   },
   {
-    src: '/assets/aistudio/IMG_8844_492d187d.jpeg',
+    src: '/assets/optimized/IMG_8844_492d187d.webp',
     title: 'A Pipoca Maluca',
     tag: 'Palavras do Dia a Dia',
     description: 'Ilustrações divertidas que geram curiosidade e engajamento imediato',
   },
   {
-    src: '/assets/aistudio/IMG_8845_b6f5e78a.jpeg',
+    src: '/assets/optimized/IMG_8845_b6f5e78a.webp',
     title: 'O Pato Agitado',
     tag: 'Autonomia Leitora',
     description: 'Frases simples em caixa alta ideais para a fase inicial de alfabetização',
   },
   {
-    src: '/assets/aistudio/IMG_8840_5bf12aa3.jpeg',
+    src: '/assets/optimized/IMG_8840_5bf12aa3.webp',
     title: 'A Árvore Alta',
     tag: 'Interpretação & Imaginação',
     description: 'Conexão afetiva com a historinha e reforço visual de cada frase',
   },
   {
-    src: '/assets/aistudio/IMG_8839_f2ccf262.jpeg',
+    src: '/assets/optimized/IMG_8839_f2ccf262.webp',
     title: 'A Vaca Mimosa',
     tag: 'Fixação de Sílabas Simples',
     description: 'Textos com rima suave que a criança consegue ler todinha sozinha',
   },
   {
-    src: '/assets/aistudio/IMG_8843_7bd00d4e.jpeg',
+    src: '/assets/optimized/IMG_8843_7bd00d4e.webp',
     title: 'Meu Caderno de Leitura',
     tag: 'Sílabas Simples e Complexas',
     description: 'Capa e atividades do personagem Besourinho com desafios fônicos',
   },
   {
-    src: '/assets/aistudio/IMG_8841_e9911728.jpeg',
+    src: '/assets/optimized/IMG_8841_e9911728.webp',
     title: 'Caderno do Porquinho',
     tag: 'Formação de Palavras & Frases',
     description: 'Atividades práticas para acabar com as trocas de letras e dúvidas',
   },
   {
-    src: '/assets/aistudio/IMG_8842_a8464329.jpeg',
+    src: '/assets/optimized/IMG_8842_a8464329.webp',
     title: 'A Casinha Encantada',
     tag: 'Livro da Leitura Completo',
     description: 'Formato prático em espiral com letras grandes e ilustrações vivas',
@@ -123,6 +123,7 @@ export const ActivitiesCarousel: React.FC = () => {
               alt={current.title}
               className="w-full h-full object-cover transition-opacity duration-300"
               loading="lazy"
+              decoding="async"
             />
 
             {/* Subtle Gradient Overlay at bottom for readable text */}

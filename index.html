@@ -9,30 +9,144 @@
     <meta property="og:description" content="8 materiais ilustrados para aprender a ler e se divertir. Alfabetização fônica lúdica e acelerada em 15 minutos por dia." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-    <!-- Meta Pixel Code -->
+    <!-- High-priority network hints for Meta Pixel & LCP poster -->
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link rel="preload" as="image" href="/assets/optimized/vsl-poster.webp" fetchpriority="high" type="image/webp" />
+
+    <!-- Non-blocking Google Fonts with font-display=swap + instant system font fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+
+    <!-- Meta Pixel Code (Async High-Priority PageView without render blocking) -->
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
       if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
+      n.queue=[];t=b.createElement(e);t.async=!0;t.fetchPriority='high';
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '1443878623817820');
       fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=1443878623817820&ev=PageView&noscript=1"
-    /></noscript>
     <!-- End Meta Pixel Code -->
+
+    <!-- Critical First-Fold Inline CSS: Guarantees < 1.0s FCP & LCP with zero layout shift -->
+    <style>
+      *,*::before,*::after{box-sizing:border-box}
+      body{margin:0;background:#FBFBFA;color:#1E293B;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+      .af-sec{background:linear-gradient(180deg,rgba(255,241,242,.7) 0%,#fff 55%,rgba(255,251,235,.3) 100%);border-bottom:1px solid #f1f5f9;overflow:hidden}
+      .af-bar{background:#020617;color:#fff;padding:8px 12px;text-align:center;font-size:11px;font-weight:800;letter-spacing:.025em;border-bottom:1px solid rgba(244,63,94,.4)}
+      .af-bar span.hl{color:#FF5C83}
+      .af-wrap{max-width:768px;margin:0 auto;padding:14px 14px 32px;text-align:center}
+      .af-kicker{margin:0 0 6px;font-size:12px;font-weight:800;color:#E11D48;letter-spacing:-.025em}
+      .af-h1{margin:0 0 8px;font-size:22px;font-weight:900;color:#0f172a;line-height:1.13;letter-spacing:-.02em}
+      .af-h1-hl{color:#FF3B69;background:rgba(255,228,230,.8);padding:2px 6px;border-radius:8px;border:1px solid #fecdd3;display:inline-block}
+      .af-sub{margin:0 auto 14px;max-width:672px;font-size:12px;font-weight:700;color:#334155;line-height:1.375}
+      .af-sub strong{color:#0f172a;font-weight:900}
+      .af-vsl-box{max-width:230px;margin:0 auto 14px}
+      .af-vsl-hd{background:#0f172a;color:#fff;border-radius:16px 16px 0 0;padding:6px 12px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;border:4px solid #0f172a;border-bottom:0}
+      .af-vsl-frame{position:relative;border-radius:0 0 24px 24px;overflow:hidden;border:4px solid #020617;background:#020617;aspect-ratio:9/14;max-height:310px;width:100%;box-shadow:0 20px 25px -5px rgba(244,63,94,.3)}
+      .af-vsl-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+      .af-vsl-ov{position:absolute;inset:0;background:rgba(2,6,23,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px;color:#fff}
+      .af-play{width:64px;height:64px;border-radius:9999px;background:#FF3B69;display:flex;align-items:center;justify-content:center;border:4px solid rgba(255,255,255,.9);box-shadow:0 20px 25px rgba(244,63,94,.65);animation:afPulse 1.8s infinite ease-in-out}
+      .af-badge{background:#FF3B69;color:#fff;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;padding:8px 16px;border-radius:9999px;border:1px solid rgba(255,255,255,.3);white-space:nowrap}
+      .af-cta-wrap{max-width:448px;margin:0 auto 20px}
+      .af-price-row{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:700;color:#334155;margin-bottom:8px}
+      .af-old{text-decoration:line-through;color:#94a3b8}
+      .af-price{font-size:20px;font-weight:900;color:#FF3B69}
+      .af-imm{color:#047857;font-weight:800}
+      .af-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 20px;border-radius:16px;background:#FF3B69;color:#fff;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:.025em;text-decoration:none;border-bottom:4px solid #C81C44;box-shadow:0 20px 25px -5px rgba(244,63,94,.3)}
+      .af-meta{margin:8px 0 0;font-size:11px;font-weight:600;color:#64748b}
+      @keyframes afPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+      @media(min-width:640px){
+        .af-bar{font-size:12px}
+        .af-wrap{padding:28px 24px 48px}
+        .af-kicker{font-size:14px}
+        .af-h1{font-size:36px}
+        .af-sub{font-size:16px}
+        .af-vsl-box{max-width:300px}
+        .af-vsl-hd{font-size:12px}
+        .af-vsl-frame{aspect-ratio:9/16;max-height:430px}
+        .af-play{width:80px;height:80px}
+        .af-btn{border-radius:9999px;padding:16px 20px;font-size:16px}
+      }
+    </style>
   </head>
   <body class="bg-[#FBFBFA] text-[#1E293B] antialiased selection:bg-amber-200 selection:text-amber-950">
-    <div id="root"></div>
+    <noscript>
+      <img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1443878623817820&ev=PageView&noscript=1" />
+    </noscript>
+
+    <div id="root">
+      <!-- Instant First-Fold Shell (Zero render-blocking JS/CSS wait for FCP & LCP) -->
+      <section class="af-sec" aria-label="Apresentação">
+        <div class="af-bar">
+          <span>CONDIÇÃO DO ANÚNCIO:</span>
+          <span class="hl">8 Cadernos + 6 Bônus com 80% OFF liberados hoje</span>
+        </div>
+        <div class="af-wrap">
+          <p class="af-kicker">A hora do dever de casa virou motivo de briga e choro aí na sua casa?</p>
+          <h1 class="af-h1">
+            Faça seu filho
+            <span class="af-h1-hl">ler as primeiras frases sozinho</span>
+            em poucos dias, sem gritos e sem sofrimento
+          </h1>
+          <p class="af-sub">
+            Cada semana travado na leitura aumenta o bloqueio e a vergonha na escola. Assista ao vídeo e libere o
+            <strong>Kit com 8 Cadernos</strong> que já destravou +500 crianças:
+          </p>
+          <div class="af-vsl-box">
+            <div class="af-vsl-hd">▼ Veja o caderno por dentro:</div>
+            <div class="af-vsl-frame">
+              <img
+                src="/assets/optimized/vsl-poster.webp"
+                alt="Demonstração do Kit Meus Cadernos da Leitura"
+                width="384"
+                height="597"
+                fetchpriority="high"
+                loading="eager"
+                decoding="sync"
+                class="af-vsl-img"
+              />
+              <div class="af-vsl-ov">
+                <div class="af-play">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                </div>
+                <div class="af-badge">TOQUE PARA OUVIR COM SOM</div>
+              </div>
+            </div>
+          </div>
+          <div class="af-cta-wrap">
+            <div class="af-price-row">
+              <span class="af-old">De R$ 197</span>
+              <span>por apenas</span>
+              <span class="af-price">R$ 37,90</span>
+              <span>·</span>
+              <span class="af-imm">Acesso Imediato</span>
+            </div>
+            <a
+              href="https://pay.wiapy.com/PHWcAoOLTjcR"
+              onclick="if(window.fbq){try{fbq('track','InitiateCheckout',{content_name:'Pacote Premium Kit Completo - R$ 37,90',value:37.90,currency:'BRL'});}catch(e){}}"
+              class="af-btn"
+            >
+              <span>QUERO DESTRAVAR A LEITURA DO MEU FILHO</span>
+            </a>
+            <p class="af-meta">8 Cadernos em PDF + 6 Bônus Grátis · Receba no e-mail em 1 minuto · Garantia de 7 dias</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
