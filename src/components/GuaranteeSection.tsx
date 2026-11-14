@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShieldCheck, Award, ArrowRight, Download, HeartHandshake, RotateCcw, Lock } from 'lucide-react';
-import { CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/landingData';
+import { buildCheckoutUrl, warmCheckoutUrl, trackAndRedirectToCheckout } from '../data/checkoutConfig';
 
 interface GuaranteeSectionProps {
   onDirectCta?: () => void;
@@ -82,10 +82,12 @@ export const GuaranteeSection: React.FC<GuaranteeSectionProps> = ({ onDirectCta 
           {/* Action Button & Trust Seal */}
           <div className="text-center pt-2">
             <a
-              href={CHECKOUT_URLS.combo}
+              href={buildCheckoutUrl('combo')}
+              onPointerDown={() => warmCheckoutUrl('combo')}
+              onMouseEnter={() => warmCheckoutUrl('combo')}
               onClick={(e) => {
                 e.preventDefault();
-                trackAndRedirectToCheckout('combo');
+                trackAndRedirectToCheckout('combo', e.currentTarget);
               }}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-sm sm:text-base shadow-lg hover:shadow-xl transition-all active:scale-95 cursor-pointer text-center"
             >

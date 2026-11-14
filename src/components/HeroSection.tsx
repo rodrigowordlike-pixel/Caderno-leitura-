@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Star, ArrowRight, ShieldCheck, ChevronDown, Lock, Zap, Volume2, Sparkles, CheckCircle2, RotateCcw, Play } from 'lucide-react';
-import { ASSETS, CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/checkoutConfig';
+import { ASSETS, buildCheckoutUrl, warmCheckoutUrl, trackAndRedirectToCheckout } from '../data/checkoutConfig';
 
 interface HeroSectionProps {
   onCtaClick?: () => void;
@@ -272,10 +272,12 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           </div>
 
           <a
-            href={CHECKOUT_URLS.combo}
+            href={buildCheckoutUrl('combo')}
+            onPointerDown={() => warmCheckoutUrl('combo')}
+            onMouseEnter={() => warmCheckoutUrl('combo')}
             onClick={(e) => {
               e.preventDefault();
-              trackAndRedirectToCheckout('combo');
+              trackAndRedirectToCheckout('combo', e.currentTarget);
             }}
             className="w-full py-3.5 sm:py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wide shadow-xl shadow-rose-500/30 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer text-center"
           >
@@ -377,10 +379,12 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
           {/* Aggressive 3D CTA Button */}
           <a
-            href={CHECKOUT_URLS.combo}
+            href={buildCheckoutUrl('combo')}
+            onPointerDown={() => warmCheckoutUrl('combo')}
+            onMouseEnter={() => warmCheckoutUrl('combo')}
             onClick={(e) => {
               e.preventDefault();
-              trackAndRedirectToCheckout('combo');
+              trackAndRedirectToCheckout('combo', e.currentTarget);
             }}
             className="w-full py-3.5 sm:py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-lg shadow-rose-300 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer mb-2 text-center"
           >

@@ -1,5 +1,5 @@
 import { BonusItem, FaqItem, PricingPlan, ProductModule, SaleNotification, Testimonial } from '../types';
-export { ASSETS, CHECKOUT_URLS, trackAndRedirectToCheckout } from './checkoutConfig';
+export { ASSETS, CHECKOUT_URLS, buildCheckoutUrl, warmCheckoutUrl, trackAndRedirectToCheckout } from './checkoutConfig';
 
 export const REFLECTION_SIGNALS = [
   {

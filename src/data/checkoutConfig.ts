@@ -34,10 +34,57 @@ export const buildCheckoutUrl = (plan: 'combo' | 'basic'): string => {
   }
 };
 
-export const trackAndRedirectToCheckout = (plan: 'combo' | 'basic') => {
+const warmedUrls = new Set<string>();
+
+export const warmCheckoutUrl = (plan: 'combo' | 'basic') => {
+  if (typeof document === 'undefined') return;
+  const url = buildCheckoutUrl(plan);
+  if (warmedUrls.has(url)) return;
+  warmedUrls.add(url);
+
+  try {
+    if (!document.querySelector('link[rel="preconnect"][href="https://pay.wiapy.com"]')) {
+      const preconnect = document.createElement('link');
+      preconnect.rel = 'preconnect';
+      preconnect.href = 'https://pay.wiapy.com';
+      preconnect.crossOrigin = 'anonymous';
+      document.head.appendChild(preconnect);
+    }
+
+    const prefetch = document.createElement('link');
+    prefetch.rel = 'prefetch';
+    prefetch.as = 'document';
+    prefetch.href = url;
+    document.head.appendChild(prefetch);
+  } catch {
+    // Ignore unsupported hint errors
+  }
+};
+
+const abortBackgroundVideoStreams = () => {
+  if (typeof document === 'undefined') return;
+  try {
+    const videos = document.querySelectorAll('video');
+    videos.forEach((v) => {
+      v.pause();
+      v.removeAttribute('src');
+      v.load();
+    });
+  } catch {
+    // Ignore cleanup errors
+  }
+};
+
+export const trackAndRedirectToCheckout = (
+  plan: 'combo' | 'basic',
+  _triggerEl?: HTMLElement | null
+) => {
   const url = buildCheckoutUrl(plan);
   const value = plan === 'basic' ? 22.90 : 37.90;
   const contentName = plan === 'basic' ? 'Opção Básica - R$ 22,90' : 'Pacote Premium Kit Completo - R$ 37,90';
+
+  // Free 100% of mobile 4G bandwidth immediately from any ongoing VSL video download
+  abortBackgroundVideoStreams();
 
   if (typeof window !== 'undefined' && (window as any).fbq) {
     try {

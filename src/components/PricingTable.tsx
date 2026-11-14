@@ -9,7 +9,7 @@ import {
   Sparkles,
   Zap
 } from 'lucide-react';
-import { ASSETS, CHECKOUT_URLS, trackAndRedirectToCheckout } from '../data/landingData';
+import { ASSETS, buildCheckoutUrl, warmCheckoutUrl, trackAndRedirectToCheckout } from '../data/checkoutConfig';
 import { DownsellModal } from './DownsellModal';
 
 interface PricingTableProps {
@@ -36,14 +36,14 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleBasicClick = (e: React.MouseEvent) => {
+  const handleBasicClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    trackAndRedirectToCheckout('basic');
+    trackAndRedirectToCheckout('basic', e.currentTarget);
   };
 
-  const handleComboClick = (e: React.MouseEvent) => {
+  const handleComboClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    trackAndRedirectToCheckout('combo');
+    trackAndRedirectToCheckout('combo', e.currentTarget);
   };
 
   const handleAcceptUpgrade = () => {
@@ -183,7 +183,9 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
           {/* 3D Action Button */}
           <div className="mt-5">
             <a
-              href={CHECKOUT_URLS.combo}
+              href={buildCheckoutUrl('combo')}
+              onPointerDown={() => warmCheckoutUrl('combo')}
+              onMouseEnter={() => warmCheckoutUrl('combo')}
               onClick={handleComboClick}
               className="w-full py-4 sm:py-5 px-6 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-base sm:text-lg uppercase tracking-wider shadow-xl shadow-rose-200 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all text-center cursor-pointer flex items-center justify-center gap-2"
             >
@@ -264,7 +266,9 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
           </div>
 
           <a
-            href={CHECKOUT_URLS.basic}
+            href={buildCheckoutUrl('basic')}
+            onPointerDown={() => warmCheckoutUrl('basic')}
+            onMouseEnter={() => warmCheckoutUrl('basic')}
             onClick={handleBasicClick}
             className="w-full py-3 px-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs sm:text-sm transition-all text-center cursor-pointer active:scale-95 shadow-xs block"
           >

@@ -140,8 +140,27 @@
       </section>
     </div>
 
+    <script type="speculationrules">
+      {
+        "prefetch": [
+          {
+            "source": "list",
+            "urls": [
+              "https://pay.wiapy.com/PHWcAoOLTjcR",
+              "https://pay.wiapy.com/EifdeIu3KQr"
+            ],
+            "eagerness": "conservative"
+          }
+        ]
+      }
+    </script>
     <script>
-      window.addEventListener('load',function(){var l=document.createElement('link');l.rel='dns-prefetch';l.href='https://pay.wiapy.com';document.head.appendChild(l);},{once:true});
+      window.addEventListener('load',function(){
+        setTimeout(function(){
+          var p=document.createElement('link');p.rel='preconnect';p.href='https://pay.wiapy.com';p.crossOrigin='anonymous';document.head.appendChild(p);
+          var d=document.createElement('link');d.rel='dns-prefetch';d.href='https://pay.wiapy.com';document.head.appendChild(d);
+        },1200);
+      },{once:true});
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
