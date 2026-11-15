@@ -241,9 +241,9 @@ export const PRICING_PLANS: PricingPlan[] = [
     title: 'Oferta Básica',
     tagline: 'Os 8 materiais completos sem os bônus adicionais',
     originalPrice: 'R$ 29,90',
-    currentPrice: 'R$ 22,90',
-    installments: 'ou 2x de R$ 11,88',
-    savings: 'Economize R$ 7,00',
+    currentPrice: 'R$ 8,90',
+    installments: 'à vista no PIX ou cartão',
+    savings: 'Economize R$ 21,00',
     features: [
       { text: '8 materiais progressivos completos', included: true },
       { text: '+1.500 atividades exclusivas', included: true },
@@ -252,19 +252,19 @@ export const PRICING_PLANS: PricingPlan[] = [
       { text: '7 dias de garantia', included: true },
       { text: 'Todos os 6 Super Bônus (R$ 233,40 em presentes)', included: false },
     ],
-    ctaText: 'Quero a Oferta Básica por R$ 22,90',
+    ctaText: 'Quero a Oferta Básica por R$ 8,90',
     ctaSubtext: 'Acesso vitalício imediato no e-mail'
   },
   {
     id: 'combo',
     title: 'Kit Completo: Meus 8 Cadernos da Leitura',
-    tagline: 'O kit definitivo com todos os 8 cadernos ilustrados + 5 bônus',
+    tagline: 'O kit definitivo com todos os 8 cadernos ilustrados + 6 bônus',
     badge: 'O MAIS ESCOLHIDO • 94% DOS PAIS PREFEREM',
     isPopular: true,
     originalPrice: 'R$ 197,00',
-    currentPrice: 'R$ 37,90',
-    installments: 'ou 4x de R$ 10,15',
-    savings: 'Diferença de apenas R$ 8,00 pelo kit completo!',
+    currentPrice: 'R$ 9,90',
+    installments: 'ou no cartão de crédito',
+    savings: 'Diferença de apenas R$ 1,00 pelo kit completo!',
     features: [
       { text: 'TODOS os 8 Cadernos Ilustrados Completos (PDF em Alta Resolução)', included: true, highlight: true },
       { text: 'Guia de Aplicação de 15 Minutos por Dia para Pais', included: true },
@@ -277,7 +277,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       { text: 'Garantia Incondicional Blindada de 7 Dias', included: true, highlight: true },
     ],
     ctaText: 'SIM! QUERO OS 8 CADERNOS + 6 BÔNUS COM DESCONTO',
-    ctaSubtext: 'Apenas R$ 8 a mais para levar os 8 cadernos + R$ 233,40 em bônus'
+    ctaSubtext: 'Apenas R$ 1,00 a mais para levar os 8 cadernos + R$ 233,40 em bônus'
   }
 ];
 

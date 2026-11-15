@@ -1,7 +1,7 @@
 export const ASSETS = {
   // Optimized WebP image showing the 8 illustrated notebooks
   heroMockup: '/assets/optimized/IMG_8790_a2929a64.webp',
-  // Optimized WebP image for the R$ 37,90 combo showing 8 notebooks + 6 bonuses
+  // Optimized WebP image for the R$ 9,90 combo showing 8 notebooks + 6 bonuses
   comboMockup: '/assets/optimized/IMG_8859_e57429e4.webp',
   // Streaming-optimized compressed VSL MP4 (+faststart) & instant WebP poster
   vslVideo: '/assets/optimized/vsl.mp4',
@@ -80,8 +80,8 @@ export const trackAndRedirectToCheckout = (
   _triggerEl?: HTMLElement | null
 ) => {
   const url = buildCheckoutUrl(plan);
-  const value = plan === 'basic' ? 22.90 : 37.90;
-  const contentName = plan === 'basic' ? 'Opção Básica - R$ 22,90' : 'Pacote Premium Kit Completo - R$ 37,90';
+  const value = plan === 'basic' ? 8.90 : 9.90;
+  const contentName = plan === 'basic' ? 'Opção Básica - R$ 8,90' : 'Pacote Premium Kit Completo - R$ 9,90';
 
   // Free 100% of mobile 4G bandwidth immediately from any ongoing VSL video download
   abortBackgroundVideoStreams();

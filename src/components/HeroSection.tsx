@@ -266,7 +266,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-slate-700 mb-2">
             <span className="line-through text-slate-400">De R$ 197</span>
             <span>por apenas</span>
-            <span className="text-xl sm:text-2xl font-black text-[#FF3B69] tabular-nums">R$ 37,90</span>
+            <span className="text-xl sm:text-2xl font-black text-[#FF3B69] tabular-nums">R$ 9,90</span>
             <span className="text-slate-400">·</span>
             <span className="text-emerald-700 font-extrabold">Acesso Imediato</span>
           </div>
@@ -370,7 +370,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               De R$ 197,00 por apenas:
             </span>
             <div className="text-4xl sm:text-5xl font-black text-[#FF3B69] tracking-tight leading-none my-0.5">
-              R$ 37,90
+              R$ 9,90
             </div>
             <span className="text-[11px] font-bold text-slate-600 block mt-1">
               💳 Parcele em até 12x no cartão de crédito ou pague via PIX
@@ -388,7 +388,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             }}
             className="w-full py-3.5 sm:py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-lg shadow-rose-300 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer mb-2 text-center"
           >
-            <span>QUERO O KIT COMPLETO + 6 BÔNUS (R$ 37,90)</span>
+            <span>QUERO O KIT COMPLETO + 6 BÔNUS (R$ 9,90)</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
 

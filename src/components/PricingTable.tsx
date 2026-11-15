@@ -98,7 +98,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
         </div>
 
         {/* ============================================================== */}
-        {/* 1. MAIN HIGHLIGHTED OFFER CARD (PACOTE PREMIUM - R$ 37,90)     */}
+        {/* 1. MAIN HIGHLIGHTED OFFER CARD (PACOTE PREMIUM - R$ 9,90)      */}
         {/* EXACT REFERENCE DESIGN FROM image_cdef88c2.png & image_2de26706 */}
         {/* ============================================================== */}
         <div className="relative bg-white rounded-[36px] border-2 border-[#FF3B69] p-5 sm:p-8 shadow-2xl shadow-rose-200/50 max-w-lg mx-auto flex flex-col justify-between transition-all">
@@ -167,7 +167,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
                 de R$ 67,00
               </span>
               <div className="text-5xl sm:text-6xl font-black text-[#FF3B69] tracking-tight leading-none my-1">
-                R$ 37,90
+                R$ 9,90
               </div>
               <div className="flex items-center justify-center gap-1.5 text-slate-500 text-xs sm:text-sm font-medium mt-1">
                 <Clock className="w-3.5 h-3.5 text-slate-400" />
@@ -215,7 +215,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
         </div>
 
         {/* ============================================================== */}
-        {/* 2. SUBDUED SECONDARY OFFER (OFERTA BÁSICA - R$ 22,90)          */}
+        {/* 2. SUBDUED SECONDARY OFFER (OFERTA BÁSICA - R$ 8,90)           */}
         {/* Appears in sequence below the main card, not competing with it  */}
         {/* ============================================================== */}
         <div className="mt-10 sm:mt-12 max-w-lg mx-auto bg-slate-50/90 rounded-3xl border border-slate-200/90 p-5 sm:p-6 text-center shadow-xs">
@@ -262,7 +262,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
           <div className="flex items-center justify-center gap-2 mb-3">
             <span className="text-xs text-slate-400 line-through">de R$ 29,90</span>
             <span className="text-xs font-semibold text-slate-600">por apenas</span>
-            <span className="text-2xl sm:text-3xl font-black text-slate-900">R$ 22,90</span>
+            <span className="text-2xl sm:text-3xl font-black text-slate-900">R$ 8,90</span>
           </div>
 
           <a
@@ -272,7 +272,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
             onClick={handleBasicClick}
             className="w-full py-3 px-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs sm:text-sm transition-all text-center cursor-pointer active:scale-95 shadow-xs block"
           >
-            QUERO A OPÇÃO BÁSICA POR R$ 22,90
+            QUERO A OPÇÃO BÁSICA POR R$ 8,90
           </a>
         </div>
 

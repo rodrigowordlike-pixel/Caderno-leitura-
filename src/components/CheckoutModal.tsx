@@ -36,7 +36,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
     // Meta Pixel event: Purchase
     if (typeof window !== 'undefined' && (window as any).fbq) {
-      const numericValue = planId === 'basic' ? 22.90 : planId === 'combo-downsell' ? 34.10 : 37.90;
+      const numericValue = planId === 'basic' ? 8.90 : 9.90;
       (window as any).fbq('track', 'Purchase', {
         value: numericValue,
         currency: 'BRL',

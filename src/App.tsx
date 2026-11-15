@@ -24,7 +24,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col bg-[#FBFBFA] text-[#1E293B]">
       <main className="flex-1">
         {/* 1. HERO SECTION */}
-        <HeroSection onCtaClick={() => handleOpenCheckout('combo', 'R$ 37,90')} />
+        <HeroSection onCtaClick={() => handleOpenCheckout('combo', 'R$ 9,90')} />
 
         <Suspense fallback={null}>
           {/* 2. EMPATIA DAS MÃES */}
@@ -43,7 +43,7 @@ export default function App() {
           <PricingTable onCheckout={handleOpenCheckout} />
 
           {/* 8. GARANTIA INCONDICIONAL DE 7 DIAS */}
-          <GuaranteeSection onDirectCta={() => handleOpenCheckout('combo', 'R$ 37,90')} />
+          <GuaranteeSection onDirectCta={() => handleOpenCheckout('combo', 'R$ 9,90')} />
 
           {/* 9. FAQ */}
           <FaqSection />
