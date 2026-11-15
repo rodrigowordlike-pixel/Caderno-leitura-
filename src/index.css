@@ -21,3 +21,9 @@
   animation: soft-pulse 2.2s infinite ease-in-out;
 }
 
+/* Skip off-screen layout/paint work on mobile until scrolled near */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+

@@ -7,7 +7,7 @@ export const ASSETS = {
   vslVideo: '/assets/optimized/vsl.mp4',
   vslPoster: '/assets/optimized/vsl-poster.webp',
   motherChildReading: '/assets/optimized/IMG_8942_875dcae4.webp',
-  bonusMockup: '/src/assets/images/bonus_materiais_mockup_1793501682920.jpg',
+  bonusMockup: '/assets/optimized/IMG_8859_e57429e4.webp',
 };
 
 export const CHECKOUT_URLS = {

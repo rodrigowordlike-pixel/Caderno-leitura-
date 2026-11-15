@@ -3,7 +3,7 @@ import { BookOpen, ShieldCheck } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-900 text-xs">
+    <footer className="cv-auto bg-slate-950 text-slate-400 py-12 border-t border-slate-900 text-xs">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-10 pb-8 border-b border-slate-900">

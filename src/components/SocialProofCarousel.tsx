@@ -23,7 +23,7 @@ export const SocialProofCarousel: React.FC = () => {
   const current = TESTIMONIALS_DATA[currentIndex];
 
   return (
-    <section id="depoimentos" className="py-8 sm:py-12 bg-white border-b border-slate-100 scroll-mt-20">
+    <section id="depoimentos" className="cv-auto py-8 sm:py-12 bg-white border-b border-slate-100 scroll-mt-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
@@ -49,6 +49,8 @@ export const SocialProofCarousel: React.FC = () => {
               <img
                 src={current.avatarUrl}
                 alt={current.name}
+                width={40}
+                height={40}
                 loading="lazy"
                 decoding="async"
                 className="w-10 h-10 rounded-full object-cover border-2 border-white/60"

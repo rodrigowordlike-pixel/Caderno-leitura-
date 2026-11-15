@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles, BookOpen } from 'lucide-react';
 
 export const ACTIVITY_IMAGES = [
@@ -67,15 +67,33 @@ export const ACTIVITY_IMAGES = [
 export const ActivitiesCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Auto-advance slides every 3.5 seconds
   useEffect(() => {
-    if (!isAutoPlay) return;
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setIsInView(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { rootMargin: '100px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-advance slides every 3.5 seconds only while visible in viewport
+  useEffect(() => {
+    if (!isAutoPlay || !isInView) return;
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % ACTIVITY_IMAGES.length);
+      if (!document.hidden) {
+        setCurrentIndex((prev) => (prev + 1) % ACTIVITY_IMAGES.length);
+      }
     }, 3500);
     return () => clearInterval(interval);
-  }, [isAutoPlay]);
+  }, [isAutoPlay, isInView]);
 
   const handlePrev = () => {
     setIsAutoPlay(false);
@@ -110,6 +128,7 @@ export const ActivitiesCarousel: React.FC = () => {
 
       {/* Main Interactive Carousel Showcase */}
       <div
+        ref={containerRef}
         className="relative max-w-md sm:max-w-lg mx-auto"
         onMouseEnter={() => setIsAutoPlay(false)}
         onMouseLeave={() => setIsAutoPlay(true)}
@@ -121,6 +140,8 @@ export const ActivitiesCarousel: React.FC = () => {
             <img
               src={current.src}
               alt={current.title}
+              width={520}
+              height={693}
               className="w-full h-full object-cover transition-opacity duration-300"
               loading="lazy"
               decoding="async"

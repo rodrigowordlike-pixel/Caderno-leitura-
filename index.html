@@ -51,13 +51,17 @@
       .af-play{width:64px;height:64px;border-radius:9999px;background:#FF3B69;display:flex;align-items:center;justify-content:center;border:4px solid rgba(255,255,255,.9);box-shadow:0 20px 25px rgba(244,63,94,.65);animation:afPulse 1.8s infinite ease-in-out}
       .af-badge{background:#FF3B69;color:#fff;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;padding:8px 16px;border-radius:9999px;border:1px solid rgba(255,255,255,.3);white-space:nowrap}
       .af-cta-wrap{max-width:448px;margin:0 auto 20px}
-      .af-price-row{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:700;color:#334155;margin-bottom:8px}
+      .af-price-card{background:#fff;border:2px solid #fecdd3;border-radius:16px;padding:10px 16px;margin-bottom:10px;box-shadow:0 4px 12px rgba(244,63,94,.1)}
+      .af-price-top{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:700;margin-bottom:4px}
       .af-old{text-decoration:line-through;color:#94a3b8}
-      .af-price{font-size:20px;font-weight:900;color:#FF3B69}
-      .af-imm{color:#047857;font-weight:800}
+      .af-off{background:#d1fae5;color:#065f46;font-weight:900;padding:2px 8px;border-radius:6px;font-size:10px;text-transform:uppercase;letter-spacing:.025em}
+      .af-price-main{display:flex;align-items:baseline;justify-content:center;gap:6px;line-height:1}
+      .af-price-lbl{font-size:12px;font-weight:800;color:#334155}
+      .af-price{font-size:38px;font-weight:900;color:#FF3B69;letter-spacing:-.025em;line-height:1;font-variant-numeric:tabular-nums}
+      .af-imm{font-size:11px;color:#047857;font-weight:800;margin-top:4px}
       .af-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 20px;border-radius:16px;background:#FF3B69;color:#fff;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:.025em;text-decoration:none;border-bottom:4px solid #C81C44;box-shadow:0 20px 25px -5px rgba(244,63,94,.3)}
       .af-meta{margin:8px 0 0;font-size:11px;font-weight:600;color:#64748b}
-      @keyframes afPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+      @keyframes afPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
       @media(min-width:640px){
         .af-bar{font-size:12px}
         .af-wrap{padding:28px 24px 48px}
@@ -68,6 +72,12 @@
         .af-vsl-hd{font-size:12px}
         .af-vsl-frame{aspect-ratio:9/16;max-height:430px}
         .af-play{width:80px;height:80px}
+        .af-price-card{padding:12px 16px}
+        .af-price-top{font-size:14px}
+        .af-off{font-size:11px}
+        .af-price-lbl{font-size:14px}
+        .af-price{font-size:44px}
+        .af-imm{font-size:12px}
         .af-btn{border-radius:9999px;padding:16px 20px;font-size:16px}
       }
       @media(min-width:768px){
@@ -120,12 +130,17 @@
             </div>
           </div>
           <div class="af-cta-wrap">
-            <div class="af-price-row">
-              <span class="af-old">De R$ 197</span>
-              <span>por apenas</span>
-              <span class="af-price">R$ 9,90</span>
-              <span>·</span>
-              <span class="af-imm">Acesso Imediato</span>
+            <div class="af-price-card">
+              <div class="af-price-top">
+                <span class="af-old">De R$ 197</span>
+                <span style="color:#cbd5e1">·</span>
+                <span class="af-off">95% OFF HOJE</span>
+              </div>
+              <div class="af-price-main">
+                <span class="af-price-lbl">por apenas</span>
+                <span class="af-price">R$ 9,90</span>
+              </div>
+              <div class="af-imm">✓ Pagamento único · Acesso Imediato</div>
             </div>
             <a
               href="https://pay.wiapy.com/PHWcAoOLTjcR"

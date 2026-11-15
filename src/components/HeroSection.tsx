@@ -128,8 +128,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
         <span className="text-[#FF5C83]">8 Cadernos + 6 Bônus com 80% OFF liberados hoje</span>
       </div>
 
-      {/* Subtle Background Glow */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-full max-w-7xl h-80 bg-gradient-to-b from-rose-200/30 via-amber-100/20 to-transparent blur-3xl pointer-events-none -z-10" />
+      {/* Subtle Background Glow (Zero-blur CSS radial gradient for instant mobile GPU render) */}
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-full max-w-7xl h-80 bg-[radial-gradient(ellipse_at_top,rgba(254,205,211,0.35),rgba(254,243,199,0.2)_50%,transparent_75%)] pointer-events-none -z-10" />
 
       <div className="max-w-3xl mx-auto px-3.5 pt-3.5 pb-8 sm:px-6 sm:pt-7 sm:pb-12 text-center">
         
@@ -216,7 +216,6 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               >
                 <div className="flex flex-col items-center gap-2.5">
                   <div className="relative flex items-center justify-center">
-                    <span className="absolute inset-0 rounded-full bg-[#FF3B69] opacity-55 animate-ping" />
                     <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-soft-pulse">
                       {shouldLoadVideo ? (
                         <Volume2 className="w-8 h-8 sm:w-10 sm:h-10 ml-0.5" />
@@ -263,12 +262,24 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
         {/* IMMEDIATE FIRST-SCREEN CTA & PRICE ANCHOR (ABOVE THE FOLD!)    */}
         {/* ============================================================== */}
         <div className="max-w-md mx-auto mb-5">
-          <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-slate-700 mb-2">
-            <span className="line-through text-slate-400">De R$ 197</span>
-            <span>por apenas</span>
-            <span className="text-xl sm:text-2xl font-black text-[#FF3B69] tabular-nums">R$ 9,90</span>
-            <span className="text-slate-400">·</span>
-            <span className="text-emerald-700 font-extrabold">Acesso Imediato</span>
+          {/* High-Contrast First-Fold Price Spotlight Card */}
+          <div className="bg-white border-2 border-rose-200 rounded-2xl px-4 py-2.5 sm:py-3 mb-2.5 shadow-md shadow-rose-500/10">
+            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-bold mb-1">
+              <span className="line-through text-slate-400">De R$ 197</span>
+              <span className="text-slate-300">·</span>
+              <span className="bg-emerald-100 text-emerald-800 font-black px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] uppercase tracking-wide">
+                95% OFF HOJE
+              </span>
+            </div>
+            <div className="flex items-baseline justify-center gap-1.5 leading-none">
+              <span className="text-xs sm:text-sm font-extrabold text-slate-700">por apenas</span>
+              <span className="text-[38px] sm:text-[44px] font-black text-[#FF3B69] tracking-tight tabular-nums leading-none">
+                R$ 9,90
+              </span>
+            </div>
+            <div className="text-[11px] sm:text-xs font-extrabold text-emerald-700 mt-1">
+              ✓ Pagamento único · Acesso Imediato
+            </div>
           </div>
 
           <a
@@ -320,6 +331,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             <img
               src={ASSETS.heroMockup}
               alt="Kit Completo Meus Cadernos da Leitura - 8 Materiais"
+              width={540}
+              height={540}
               className="w-full h-auto object-cover block select-none rounded-xl"
               loading="lazy"
               decoding="async"

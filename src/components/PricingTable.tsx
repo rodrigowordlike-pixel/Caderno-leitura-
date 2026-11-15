@@ -10,24 +10,18 @@ import {
   Zap
 } from 'lucide-react';
 import { ASSETS, buildCheckoutUrl, warmCheckoutUrl, trackAndRedirectToCheckout } from '../data/checkoutConfig';
-import { DownsellModal } from './DownsellModal';
 
-interface PricingTableProps {
-  onCheckout: (planId: 'basic' | 'combo' | 'combo-downsell', price: string) => void;
-}
-
-export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
-  const [isDownsellOpen, setIsDownsellOpen] = useState(false);
-
-  // Dynamic countdown timer for urgency (14:59 ticking down)
+const CountdownTimer: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState({ minutes: 14, seconds: 59 });
 
   useEffect(() => {
     const timer = setInterval(() => {
+      if (document.hidden) return;
       setTimeLeft((prev) => {
         if (prev.seconds > 0) {
           return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
+        }
+        if (prev.minutes > 0) {
           return { minutes: prev.minutes - 1, seconds: 59 };
         }
         return { minutes: 14, seconds: 59 };
@@ -36,6 +30,18 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
     return () => clearInterval(timer);
   }, []);
 
+  return (
+    <span className="font-mono text-[#FF3B69] font-black text-sm">
+      {String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
+    </span>
+  );
+};
+
+interface PricingTableProps {
+  onCheckout: (planId: 'basic' | 'combo' | 'combo-downsell', price: string) => void;
+}
+
+export const PricingTable: React.FC<PricingTableProps> = () => {
   const handleBasicClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     trackAndRedirectToCheckout('basic', e.currentTarget);
@@ -44,16 +50,6 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
   const handleComboClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     trackAndRedirectToCheckout('combo', e.currentTarget);
-  };
-
-  const handleAcceptUpgrade = () => {
-    setIsDownsellOpen(false);
-    trackAndRedirectToCheckout('combo');
-  };
-
-  const handleContinueBasic = () => {
-    setIsDownsellOpen(false);
-    trackAndRedirectToCheckout('basic');
   };
 
   // Exact 8 bullet points requested in user reference
@@ -69,7 +65,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
   ];
 
   return (
-    <section id="precos" className="py-8 sm:py-12 bg-gradient-to-b from-rose-50/40 via-white to-amber-50/30 scroll-mt-10 overflow-hidden">
+    <section id="precos" className="cv-auto py-8 sm:py-12 bg-gradient-to-b from-rose-50/40 via-white to-amber-50/30 scroll-mt-10 overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
@@ -90,9 +86,7 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
             <Clock className="w-3.5 h-3.5 text-orange-600 shrink-0" />
             <span>
               Preço promocional válido por:{' '}
-              <span className="font-mono text-[#FF3B69] font-black text-sm">
-                {String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
-              </span>
+              <CountdownTimer />
             </span>
           </div>
         </div>
@@ -126,6 +120,8 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
                 <img
                   src={ASSETS.comboMockup}
                   alt="Kit Completo Meus Cadernos da Leitura + 6 Bônus Exclusivos"
+                  width={540}
+                  height={540}
                   className="w-full h-auto object-contain select-none"
                   loading="lazy"
                   decoding="async"
@@ -237,6 +233,8 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
               <img
                 src={ASSETS.heroMockup}
                 alt="8 Cadernos de Leitura"
+                width={80}
+                height={80}
                 className="w-full h-full object-cover"
                 loading="lazy"
                 decoding="async"
@@ -285,14 +283,6 @@ export const PricingTable: React.FC<PricingTableProps> = ({ onCheckout }) => {
         </div>
 
       </div>
-
-      {/* Downsell Modal for Basic Selection */}
-      <DownsellModal
-        isOpen={isDownsellOpen}
-        onClose={() => setIsDownsellOpen(false)}
-        onAcceptUpgrade={handleAcceptUpgrade}
-        onContinueBasic={handleContinueBasic}
-      />
     </section>
   );
 };

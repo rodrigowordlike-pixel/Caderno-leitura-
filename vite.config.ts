@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
 import path from 'path';
 import {defineConfig, type Plugin} from 'vite';
 
@@ -16,9 +17,21 @@ function nonBlockingCssPlugin(): Plugin {
   };
 }
 
+function stripAistudioFromDistPlugin(): Plugin {
+  return {
+    name: 'strip-aistudio-from-dist',
+    closeBundle() {
+      const target = path.resolve(__dirname, 'dist/assets/aistudio');
+      if (fs.existsSync(target)) {
+        fs.rmSync(target, {recursive: true, force: true});
+      }
+    },
+  };
+}
+
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss(), nonBlockingCssPlugin()],
+    plugins: [react(), tailwindcss(), nonBlockingCssPlugin(), stripAistudioFromDistPlugin()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

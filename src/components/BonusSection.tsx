@@ -55,7 +55,7 @@ export const COMPACT_BONUSES = [
 
 export const BonusSection: React.FC = () => {
   return (
-    <section id="bonus" className="py-8 sm:py-12 bg-[#FFF2EC] border-b border-amber-200/60 scroll-mt-10">
+    <section id="bonus" className="cv-auto py-8 sm:py-12 bg-[#FFF2EC] border-b border-amber-200/60 scroll-mt-10">
       <div className="max-w-4xl mx-auto px-3 sm:px-6">
         
         {/* Section Header - Sensação de Ganho Imediato */}
@@ -91,6 +91,8 @@ export const BonusSection: React.FC = () => {
                   <img
                     src={bonus.image}
                     alt={bonus.title}
+                    width={420}
+                    height={525}
                     className="w-full h-full object-cover select-none"
                     loading="lazy"
                     decoding="async"

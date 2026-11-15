@@ -1,11 +1,11 @@
 import React from 'react';
 import { AlertOctagon, CheckCircle2, Lightbulb, Sparkles, Volume2, Eye, Trophy, ArrowRight } from 'lucide-react';
-import { ASSETS } from '../data/landingData';
+import { ASSETS } from '../data/checkoutConfig';
 import { ActivitiesCarousel } from './ActivitiesCarousel';
 
 export const UniqueMechanism: React.FC = () => {
   return (
-    <section id="mecanismo-unico" className="py-8 sm:py-12 bg-white border-b border-slate-100 scroll-mt-10">
+    <section id="mecanismo-unico" className="cv-auto py-8 sm:py-12 bg-white border-b border-slate-100 scroll-mt-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
@@ -182,6 +182,8 @@ export const UniqueMechanism: React.FC = () => {
                 <img
                   src={ASSETS.motherChildReading}
                   alt="Mãe e filho lendo juntos felizes com o Livro da Leitura"
+                  width={520}
+                  height={910}
                   className="w-full h-auto object-cover select-none"
                   loading="lazy"
                   decoding="async"
