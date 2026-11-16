@@ -120,11 +120,12 @@ export const PricingTable: React.FC<PricingTableProps> = () => {
                 <img
                   src={ASSETS.comboMockup}
                   alt="Kit Completo Meus Cadernos da Leitura + 6 Bônus Exclusivos"
-                  width={540}
-                  height={540}
+                  width={440}
+                  height={440}
                   className="w-full h-auto object-contain select-none"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                 />
               </div>
             </div>
@@ -238,6 +239,7 @@ export const PricingTable: React.FC<PricingTableProps> = () => {
                 className="w-full h-full object-cover"
                 loading="lazy"
                 decoding="async"
+                fetchPriority="low"
               />
             </div>
             <div className="text-xs text-slate-600 space-y-1">

@@ -34,51 +34,32 @@
     <style>
       *,*::before,*::after{box-sizing:border-box}
       body{margin:0;background:#FBFBFA;color:#1E293B;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
-      .af-sec{background:linear-gradient(180deg,rgba(255,241,242,.7) 0%,#fff 55%,rgba(255,251,235,.3) 100%);border-bottom:1px solid #f1f5f9;overflow:hidden}
-      .af-bar{background:#020617;color:#fff;padding:8px 12px;text-align:center;font-size:11px;font-weight:800;letter-spacing:.025em;border-bottom:1px solid rgba(244,63,94,.4)}
-      .af-bar span.hl{color:#FF5C83}
-      .af-wrap{max-width:768px;margin:0 auto;padding:14px 14px 32px;text-align:center}
-      .af-kicker{margin:0 0 6px;font-size:12px;font-weight:800;color:#E11D48;letter-spacing:-.025em}
-      .af-h1{margin:0 0 8px;font-size:22px;font-weight:900;color:#0f172a;line-height:1.13;letter-spacing:-.02em}
-      .af-h1-hl{color:#FF3B69;background:rgba(255,228,230,.8);padding:2px 6px;border-radius:8px;border:1px solid #fecdd3;display:inline-block}
-      .af-sub{margin:0 auto 14px;max-width:672px;font-size:12px;font-weight:700;color:#334155;line-height:1.375}
-      .af-sub strong{color:#0f172a;font-weight:900}
-      .af-vsl-box{max-width:230px;margin:0 auto 14px}
-      .af-vsl-hd{background:#0f172a;color:#fff;border-radius:16px 16px 0 0;padding:6px 12px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;border:4px solid #0f172a;border-bottom:0}
-      .af-vsl-frame{position:relative;border-radius:0 0 24px 24px;overflow:hidden;border:4px solid #020617;background:#020617;aspect-ratio:9/14;max-height:310px;width:100%;box-shadow:0 20px 25px -5px rgba(244,63,94,.3)}
+      .af-sec{background:linear-gradient(180deg,rgba(255,251,235,.7) 0%,#FBFBFA 55%,rgba(255,241,242,.3) 100%);border-bottom:1px solid #f1f5f9;overflow:hidden}
+      .af-wrap{max-width:768px;margin:0 auto;padding:20px 16px 32px;text-align:center}
+      .af-h1{margin:0 0 10px;font-size:26px;font-weight:900;color:#0f172a;line-height:1.15;letter-spacing:-.02em}
+      .af-h1-hl{color:#FF3B69}
+      .af-sub{margin:0 auto 16px;max-width:576px;font-size:13px;font-weight:500;color:#475569;line-height:1.375}
+      .af-vsl-box{max-width:240px;margin:0 auto 16px}
+      .af-vsl-frame{position:relative;border-radius:24px;overflow:hidden;border:2px solid rgba(253,230,138,.9);background:#451a03;aspect-ratio:4/5;max-height:295px;width:100%;box-shadow:0 20px 25px -5px rgba(120,53,15,.1)}
       .af-vsl-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-      .af-vsl-ov{position:absolute;inset:0;background:rgba(2,6,23,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px;color:#fff}
-      .af-play{width:64px;height:64px;border-radius:9999px;background:#FF3B69;display:flex;align-items:center;justify-content:center;border:4px solid rgba(255,255,255,.9);box-shadow:0 20px 25px rgba(244,63,94,.65);animation:afPulse 1.8s infinite ease-in-out}
-      .af-badge{background:#FF3B69;color:#fff;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;padding:8px 16px;border-radius:9999px;border:1px solid rgba(255,255,255,.3);white-space:nowrap}
-      .af-cta-wrap{max-width:448px;margin:0 auto 20px}
-      .af-price-card{background:#fff;border:2px solid #fecdd3;border-radius:16px;padding:10px 16px;margin-bottom:10px;box-shadow:0 4px 12px rgba(244,63,94,.1)}
-      .af-price-top{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:700;margin-bottom:4px}
-      .af-old{text-decoration:line-through;color:#94a3b8}
-      .af-off{background:#d1fae5;color:#065f46;font-weight:900;padding:2px 8px;border-radius:6px;font-size:10px;text-transform:uppercase;letter-spacing:.025em}
-      .af-price-main{display:flex;align-items:baseline;justify-content:center;gap:6px;line-height:1}
-      .af-price-lbl{font-size:12px;font-weight:800;color:#334155}
-      .af-price{font-size:38px;font-weight:900;color:#FF3B69;letter-spacing:-.025em;line-height:1;font-variant-numeric:tabular-nums}
-      .af-imm{font-size:11px;color:#047857;font-weight:800;margin-top:4px}
-      .af-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 20px;border-radius:16px;background:#FF3B69;color:#fff;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:.025em;text-decoration:none;border-bottom:4px solid #C81C44;box-shadow:0 20px 25px -5px rgba(244,63,94,.3)}
-      .af-meta{margin:8px 0 0;font-size:11px;font-weight:600;color:#64748b}
+      .af-vsl-ov{position:absolute;inset:0;background:rgba(69,26,3,.2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px;color:#fff}
+      .af-play{width:56px;height:56px;border-radius:9999px;background:#FF3B69;display:flex;align-items:center;justify-content:center;border:4px solid rgba(255,255,255,.95);box-shadow:0 16px 24px rgba(136,19,55,.3);animation:afPulse 1.8s infinite ease-in-out}
+      .af-badge{background:rgba(255,255,255,.95);color:#0f172a;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.025em;padding:6px 14px;border-radius:9999px;box-shadow:0 10px 15px rgba(0,0,0,.1);white-space:nowrap}
+      .af-cta-wrap{max-width:448px;margin:0 auto 24px}
+      .af-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 20px;border-radius:16px;background:#FF3B69;color:#fff;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:.025em;text-decoration:none;border-bottom:4px solid #C81C44;box-shadow:0 20px 25px -5px rgba(244,63,94,.25)}
+      .af-meta{margin:10px 0 0;font-size:12px;font-weight:600;color:#334155;line-height:1.375}
+      .af-meta strong{color:#FF3B69;font-weight:900}
       @keyframes afPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
       @media(min-width:640px){
-        .af-bar{font-size:12px}
-        .af-wrap{padding:28px 24px 48px}
-        .af-kicker{font-size:14px}
+        .af-wrap{padding:36px 24px 48px}
         .af-h1{font-size:36px}
-        .af-sub{font-size:16px}
-        .af-vsl-box{max-width:300px}
-        .af-vsl-hd{font-size:12px}
-        .af-vsl-frame{aspect-ratio:9/16;max-height:430px}
-        .af-play{width:80px;height:80px}
-        .af-price-card{padding:12px 16px}
-        .af-price-top{font-size:14px}
-        .af-off{font-size:11px}
-        .af-price-lbl{font-size:14px}
-        .af-price{font-size:44px}
-        .af-imm{font-size:12px}
+        .af-sub{font-size:16px;margin-bottom:20px}
+        .af-vsl-box{max-width:295px;margin-bottom:20px}
+        .af-vsl-frame{max-height:370px}
+        .af-play{width:64px;height:64px}
+        .af-badge{font-size:12px}
         .af-btn{border-radius:9999px;padding:16px 20px;font-size:16px}
+        .af-meta{font-size:13px}
       }
       @media(min-width:768px){
         .af-h1{font-size:44px}
@@ -91,31 +72,22 @@
     </noscript>
 
     <div id="root">
-      <!-- Instant First-Fold Shell (Zero render-blocking JS/CSS wait for FCP & LCP) -->
+      <!-- Instant First-Fold Shell (Seamless Ad Continuity + Zero render-blocking wait for FCP & LCP) -->
       <section class="af-sec" aria-label="Apresentação">
-        <div class="af-bar">
-          <span>CONDIÇÃO DO ANÚNCIO:</span>
-          <span class="hl">8 Cadernos + 6 Bônus com 80% OFF liberados hoje</span>
-        </div>
         <div class="af-wrap">
-          <p class="af-kicker">A hora do dever de casa virou motivo de briga e choro aí na sua casa?</p>
           <h1 class="af-h1">
-            Faça seu filho
-            <span class="af-h1-hl">ler as primeiras frases sozinho</span>
-            em poucos dias, sem gritos e sem sofrimento
+            Liberte o potencial <span class="af-h1-hl">da leitura do seu filho</span>
           </h1>
           <p class="af-sub">
-            Cada semana travado na leitura aumenta o bloqueio e a vergonha na escola. Assista ao vídeo e libere o
-            <strong>Kit com 8 Cadernos</strong> que já destravou +500 crianças:
+            Descubra o método prático e divertido que está ajudando centenas de crianças a destravarem a leitura em casa, sem estresse.
           </p>
           <div class="af-vsl-box">
-            <div class="af-vsl-hd">▼ Veja o caderno por dentro:</div>
-            <div class="af-vsl-frame">
+            <div class="af-vsl-frame" style="cursor:pointer" onclick="window.__wantsVideoWithSound=true;">
               <img
                 src="/assets/optimized/vsl-poster.webp"
-                alt="Demonstração do Kit Meus Cadernos da Leitura"
-                width="384"
-                height="597"
+                alt="Caderno de leitura sendo usado em casa com a família"
+                width="320"
+                height="400"
                 fetchpriority="high"
                 loading="eager"
                 decoding="sync"
@@ -123,33 +95,23 @@
               />
               <div class="af-vsl-ov">
                 <div class="af-play">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
                 </div>
                 <div class="af-badge">TOQUE PARA OUVIR COM SOM</div>
               </div>
             </div>
           </div>
           <div class="af-cta-wrap">
-            <div class="af-price-card">
-              <div class="af-price-top">
-                <span class="af-old">De R$ 197</span>
-                <span style="color:#cbd5e1">·</span>
-                <span class="af-off">95% OFF HOJE</span>
-              </div>
-              <div class="af-price-main">
-                <span class="af-price-lbl">por apenas</span>
-                <span class="af-price">R$ 9,90</span>
-              </div>
-              <div class="af-imm">✓ Pagamento único · Acesso Imediato</div>
-            </div>
             <a
               href="https://pay.wiapy.com/PHWcAoOLTjcR"
               onclick="if(window.fbq){try{fbq('track','InitiateCheckout',{content_name:'Pacote Premium Kit Completo - R$ 9,90',value:9.90,currency:'BRL'});}catch(e){}}if(window.location.search){this.href='https://pay.wiapy.com/PHWcAoOLTjcR'+window.location.search;}"
               class="af-btn"
             >
-              <span>QUERO DESTRAVAR A LEITURA DO MEU FILHO</span>
+              <span>QUERO LIBERAR O POTENCIAL DO MEU FILHO</span>
             </a>
-            <p class="af-meta">8 Cadernos em PDF + 6 Bônus Grátis · Receba no e-mail em 1 minuto · Garantia de 7 dias</p>
+            <p class="af-meta">
+              ⚡ Acesso Imediato em PDF • Garantia de 7 Dias • <strong>Por apenas R$ 9,90</strong>
+            </p>
           </div>
         </div>
       </section>

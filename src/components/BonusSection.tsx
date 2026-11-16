@@ -91,11 +91,12 @@ export const BonusSection: React.FC = () => {
                   <img
                     src={bonus.image}
                     alt={bonus.title}
-                    width={420}
-                    height={525}
+                    width={360}
+                    height={450}
                     className="w-full h-full object-cover select-none"
                     loading="lazy"
                     decoding="async"
+                    fetchPriority="low"
                   />
                 </div>
 

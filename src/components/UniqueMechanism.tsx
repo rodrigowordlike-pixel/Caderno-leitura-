@@ -182,11 +182,12 @@ export const UniqueMechanism: React.FC = () => {
                 <img
                   src={ASSETS.motherChildReading}
                   alt="Mãe e filho lendo juntos felizes com o Livro da Leitura"
-                  width={520}
-                  height={910}
+                  width={360}
+                  height={630}
                   className="w-full h-auto object-cover select-none"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                 />
               </div>
             </div>

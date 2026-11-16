@@ -64,7 +64,7 @@ export const SalesToasts: React.FC = () => {
           : 'translate-y-6 opacity-0 scale-95 pointer-events-none'
       }`}
     >
-      <div className="bg-slate-900/95 backdrop-blur-md text-white text-[11px] sm:text-xs font-medium pl-2.5 pr-2 py-1.5 rounded-full shadow-lg border border-slate-700/80 flex items-center gap-2 whitespace-nowrap">
+      <div className="bg-slate-900/95 text-white text-[11px] sm:text-xs font-medium pl-2.5 pr-2 py-1.5 rounded-full shadow-lg border border-slate-700/80 flex items-center gap-2 whitespace-nowrap">
         <span className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 shrink-0">
           <Check className="w-2.5 h-2.5 stroke-[3]" />
         </span>

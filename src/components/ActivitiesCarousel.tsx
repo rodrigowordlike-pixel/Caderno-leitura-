@@ -140,11 +140,12 @@ export const ActivitiesCarousel: React.FC = () => {
             <img
               src={current.src}
               alt={current.title}
-              width={520}
-              height={693}
+              width={360}
+              height={450}
               className="w-full h-full object-cover transition-opacity duration-300"
               loading="lazy"
               decoding="async"
+              fetchPriority="low"
             />
 
             {/* Subtle Gradient Overlay at bottom for readable text */}
@@ -179,7 +180,7 @@ export const ActivitiesCarousel: React.FC = () => {
           </button>
 
           {/* Indicator Counter Pill */}
-          <div className="absolute top-5 right-5 bg-slate-900/80 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-[11px] font-mono font-bold tracking-wider">
+          <div className="absolute top-5 right-5 bg-slate-900/85 text-white px-2.5 py-1 rounded-full text-[11px] font-mono font-bold tracking-wider">
             {currentIndex + 1} / {ACTIVITY_IMAGES.length}
           </div>
 

@@ -50,31 +50,18 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
   }, []);
 
   useEffect(() => {
-    // True Facade: never download 2.2 MB MP4 during initial critical load (LCP/FCP < 1.0s).
-    // Only mount/load <video> after user interaction OR safely after window.onload + idle.
-    let idleTimer: number | undefined;
-    let loadHandler: (() => void) | undefined;
-
-    const triggerDeferredVideo = () => {
+    // Honor tap if visitor clicked Play on the static HTML shell before React hydrated
+    const win = window as Window & { __wantsVideoWithSound?: boolean };
+    if (win.__wantsVideoWithSound) {
+      wantsSoundRef.current = true;
       setShouldLoadVideo(true);
-    };
-
-    const scheduleAfterLoad = () => {
-      idleTimer = window.setTimeout(triggerDeferredVideo, 4000);
-    };
-
-    if (document.readyState === 'complete') {
-      scheduleAfterLoad();
-    } else {
-      loadHandler = () => scheduleAfterLoad();
-      window.addEventListener('load', loadHandler, { once: true });
+      return;
     }
 
+    // True Zero-Waste Facade: never download video bytes on initial load or idle audit.
+    // Mount & buffer <video> immediately on first real user interaction (tap, scroll, touch).
     const onUserEngage = () => {
       setShouldLoadVideo(true);
-      if (idleTimer !== undefined) {
-        window.clearTimeout(idleTimer);
-      }
     };
 
     window.addEventListener('scroll', onUserEngage, { once: true, passive: true });
@@ -82,8 +69,6 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
     window.addEventListener('pointerdown', onUserEngage, { once: true, passive: true });
 
     return () => {
-      if (idleTimer !== undefined) window.clearTimeout(idleTimer);
-      if (loadHandler) window.removeEventListener('load', loadHandler);
       window.removeEventListener('scroll', onUserEngage);
       window.removeEventListener('touchstart', onUserEngage);
       window.removeEventListener('pointerdown', onUserEngage);
@@ -121,61 +106,39 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
   };
 
   return (
-    <section className="relative bg-gradient-to-b from-rose-50/70 via-white to-amber-50/30 border-b border-slate-100 overflow-hidden">
-      {/* Top Ad-Congruence Urgency Strip (does not overlap content) */}
-      <div className="bg-slate-950 text-white py-2 px-3 text-center text-[11px] sm:text-xs font-extrabold tracking-wide border-b border-rose-500/40">
-        <span>CONDIÇÃO DO ANÚNCIO:</span>{' '}
-        <span className="text-[#FF5C83]">8 Cadernos + 6 Bônus com 80% OFF liberados hoje</span>
-      </div>
+    <section className="relative bg-gradient-to-b from-amber-50/70 via-[#FBFBFA] to-rose-50/30 border-b border-slate-100 overflow-hidden">
+      {/* Subtle Warm Background Glow (Zero-blur CSS radial gradient for instant mobile GPU render) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-80 bg-[radial-gradient(ellipse_at_top,rgba(253,230,138,0.35),rgba(254,205,211,0.18)_50%,transparent_75%)] pointer-events-none -z-10" />
 
-      {/* Subtle Background Glow (Zero-blur CSS radial gradient for instant mobile GPU render) */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-full max-w-7xl h-80 bg-[radial-gradient(ellipse_at_top,rgba(254,205,211,0.35),rgba(254,243,199,0.2)_50%,transparent_75%)] pointer-events-none -z-10" />
+      <div className="max-w-3xl mx-auto px-4 pt-5 pb-8 sm:px-6 sm:pt-9 sm:pb-12 text-center">
 
-      <div className="max-w-3xl mx-auto px-3.5 pt-3.5 pb-8 sm:px-6 sm:pt-7 sm:pb-12 text-center">
-        
-        {/* Direct Ad Pain Kicker */}
-        <p className="text-xs sm:text-sm font-extrabold text-[#E11D48] mb-1.5 tracking-tight">
-          A hora do dever de casa virou motivo de briga e choro aí na sua casa?
-        </p>
-
-        {/* Main Headline - Aggressive, Ad-Congruent, Immediate Transformation */}
-        <h1 className="text-[22px] sm:text-4xl md:text-[44px] font-black text-slate-900 leading-[1.13] tracking-tight mb-2 [text-wrap:balance]">
-          Faça seu filho{' '}
-          <span className="text-[#FF3B69] bg-rose-100/80 px-1.5 py-0.5 rounded-lg border border-rose-200 inline-block">
-            ler as primeiras frases sozinho
-          </span>{' '}
-          em poucos dias, sem gritos e sem sofrimento
+        {/* Main Headline - Exact Creative Promise */}
+        <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-black text-slate-900 leading-[1.15] tracking-tight mb-2.5 [text-wrap:balance]">
+          Liberte o potencial{' '}
+          <span className="text-[#FF3B69]">da leitura do seu filho</span>
         </h1>
 
-        {/* Subheadline Hook - Emotional Urgency */}
-        <p className="text-xs sm:text-base font-bold text-slate-700 max-w-2xl mx-auto leading-snug mb-3.5 [text-wrap:balance]">
-          Cada semana travado na leitura aumenta o bloqueio e a vergonha na escola. Assista ao vídeo e libere o{' '}
-          <strong className="text-slate-900 font-black">Kit com 8 Cadernos</strong> que já destravou +500 crianças:
+        {/* Short, Warm Supporting Subtitle */}
+        <p className="text-[13px] sm:text-base font-medium text-slate-600 max-w-xl mx-auto leading-snug mb-4 sm:mb-5 [text-wrap:balance]">
+          Descubra o método prático e divertido que está ajudando centenas de crianças a destravarem a leitura em casa, sem estresse.
         </p>
 
         {/* ============================================================== */}
-        {/* COMPACT ABOVE-THE-FOLD VSL FACADE & LAZY VIDEO PLAYER          */}
+        {/* CLEAN WARM VISUAL / VSL FACADE SHOWING REAL NOTEBOOK IN USE    */}
         {/* ============================================================== */}
-        <div className="max-w-[230px] sm:max-w-[300px] mx-auto mb-3.5">
-          
-          {/* Direct Callout Header */}
-          <div className="bg-slate-900 text-white rounded-t-2xl py-1.5 px-3 text-[10.5px] sm:text-xs font-extrabold uppercase tracking-wider flex items-center justify-center gap-1.5 border-x-4 border-t-4 border-slate-900 shadow-sm">
-            <span>▼ Veja o caderno por dentro:</span>
-          </div>
-
-          {/* Video Container Frame (Instant 22KB WebP Facade -> Lazy Streaming MP4) */}
+        <div className="max-w-[240px] sm:max-w-[295px] mx-auto mb-4 sm:mb-5">
           <div
             onClick={hasEnded ? handleReplay : isMuted ? handleFacadeOrUnmute : undefined}
-            className={`relative rounded-b-[24px] overflow-hidden shadow-xl shadow-rose-500/30 border-4 border-slate-950 bg-slate-950 aspect-[9/14] sm:aspect-[9/16] max-h-[310px] sm:max-h-[430px] w-full group mx-auto ${
+            className={`relative rounded-3xl overflow-hidden shadow-xl shadow-amber-900/10 border-2 border-amber-200/90 bg-amber-950 aspect-[4/5] max-h-[295px] sm:max-h-[370px] w-full group mx-auto ${
               hasEnded || isMuted ? 'cursor-pointer' : ''
             }`}
           >
             {/* Instant WebP Poster Image (Zero black box on load, fast LCP) */}
             <img
               src={ASSETS.vslPoster}
-              alt="Demonstração do Kit Meus Cadernos da Leitura"
-              width={384}
-              height={597}
+              alt="Caderno de leitura sendo usado em casa com a família"
+              width={320}
+              height={400}
               fetchPriority="high"
               loading="eager"
               decoding="sync"
@@ -193,7 +156,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 muted={!wantsSoundRef.current && isMuted}
                 playsInline
                 controls={false}
-                preload="auto"
+                preload="metadata"
                 onPlaying={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
                 onEnded={() => {
@@ -209,24 +172,22 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               />
             )}
 
-            {/* Muted / Facade Pulsing Play & Audio Hook Overlay */}
+            {/* Muted / Facade Warm Play & Audio Hook Overlay */}
             {!hasEnded && isMuted && (
               <div
-                className="absolute inset-0 w-full h-full bg-slate-950/30 flex flex-col items-center justify-center p-3 text-white cursor-pointer transition-colors hover:bg-slate-950/20"
+                className="absolute inset-0 w-full h-full bg-amber-950/20 flex flex-col items-center justify-center p-3 text-white cursor-pointer transition-colors hover:bg-amber-950/10"
               >
                 <div className="flex flex-col items-center gap-2.5">
-                  <div className="relative flex items-center justify-center">
-                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-soft-pulse">
-                      {shouldLoadVideo ? (
-                        <Volume2 className="w-8 h-8 sm:w-10 sm:h-10 ml-0.5" />
-                      ) : (
-                        <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-white ml-1" />
-                      )}
-                    </div>
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#FF3B69] text-white flex items-center justify-center shadow-xl shadow-rose-900/30 ring-4 ring-white/95 animate-soft-pulse">
+                    {shouldLoadVideo ? (
+                      <Volume2 className="w-7 h-7 sm:w-8 sm:h-8 ml-0.5" />
+                    ) : (
+                      <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-white ml-1" />
+                    )}
                   </div>
-                  
-                  <div className="bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-[11px] sm:text-xs uppercase tracking-wider px-4 py-2 rounded-full shadow-2xl border border-white/30 flex items-center gap-1.5 whitespace-nowrap">
-                    <Volume2 className="w-3.5 h-3.5" />
+
+                  <div className="bg-white/95 text-slate-900 font-extrabold text-[11px] sm:text-xs uppercase tracking-wide px-3.5 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 whitespace-nowrap">
+                    <Volume2 className="w-3.5 h-3.5 text-[#FF3B69]" />
                     <span>TOQUE PARA OUVIR COM SOM</span>
                   </div>
                 </div>
@@ -237,13 +198,13 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             {hasEnded && (
               <div
                 onClick={handleReplay}
-                className="absolute inset-0 w-full h-full bg-slate-950/75 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-white cursor-pointer transition-all z-20"
+                className="absolute inset-0 w-full h-full bg-slate-950/85 flex flex-col items-center justify-center p-4 text-white cursor-pointer transition-all z-20"
               >
                 <div className="flex flex-col items-center gap-3 text-center">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white flex items-center justify-center shadow-2xl shadow-rose-500/90 ring-4 ring-white/90 animate-soft-pulse">
                     <RotateCcw className="w-8 h-8 sm:w-10 sm:h-10" />
                   </div>
-                  
+
                   <button
                     type="button"
                     onClick={handleReplay}
@@ -259,29 +220,9 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
         </div>
 
         {/* ============================================================== */}
-        {/* IMMEDIATE FIRST-SCREEN CTA & PRICE ANCHOR (ABOVE THE FOLD!)    */}
+        {/* DIRECT HIGH-CONTRAST CTA & IMMEDIATE RISK/PRICE SUB-TEXT       */}
         {/* ============================================================== */}
-        <div className="max-w-md mx-auto mb-5">
-          {/* High-Contrast First-Fold Price Spotlight Card */}
-          <div className="bg-white border-2 border-rose-200 rounded-2xl px-4 py-2.5 sm:py-3 mb-2.5 shadow-md shadow-rose-500/10">
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-bold mb-1">
-              <span className="line-through text-slate-400">De R$ 197</span>
-              <span className="text-slate-300">·</span>
-              <span className="bg-emerald-100 text-emerald-800 font-black px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] uppercase tracking-wide">
-                95% OFF HOJE
-              </span>
-            </div>
-            <div className="flex items-baseline justify-center gap-1.5 leading-none">
-              <span className="text-xs sm:text-sm font-extrabold text-slate-700">por apenas</span>
-              <span className="text-[38px] sm:text-[44px] font-black text-[#FF3B69] tracking-tight tabular-nums leading-none">
-                R$ 9,90
-              </span>
-            </div>
-            <div className="text-[11px] sm:text-xs font-extrabold text-emerald-700 mt-1">
-              ✓ Pagamento único · Acesso Imediato
-            </div>
-          </div>
-
+        <div className="max-w-md mx-auto mb-6">
           <a
             href={buildCheckoutUrl('combo')}
             onPointerDown={() => warmCheckoutUrl('combo')}
@@ -290,14 +231,15 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               e.preventDefault();
               trackAndRedirectToCheckout('combo', e.currentTarget);
             }}
-            className="w-full py-3.5 sm:py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wide shadow-xl shadow-rose-500/30 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer text-center"
+            className="w-full py-3.5 sm:py-4 px-5 rounded-2xl sm:rounded-full bg-[#FF3B69] hover:bg-[#F22958] text-white font-black text-sm sm:text-base uppercase tracking-wide shadow-xl shadow-rose-500/25 border-b-4 border-[#C81C44] active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 group cursor-pointer text-center"
           >
-            <span>QUERO DESTRAVAR A LEITURA DO MEU FILHO</span>
+            <span>QUERO LIBERAR O POTENCIAL DO MEU FILHO</span>
             <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
           </a>
 
-          <p className="text-[11px] sm:text-xs font-semibold text-slate-500 mt-2">
-            8 Cadernos em PDF + 6 Bônus Grátis · Receba no e-mail em 1 minuto · Garantia de 7 dias
+          <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-2.5 leading-snug">
+            ⚡ Acesso Imediato em PDF • Garantia de 7 Dias •{' '}
+            <strong className="text-[#FF3B69] font-black">Por apenas R$ 9,90</strong>
           </p>
         </div>
 
@@ -331,11 +273,12 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             <img
               src={ASSETS.heroMockup}
               alt="Kit Completo Meus Cadernos da Leitura - 8 Materiais"
-              width={540}
-              height={540}
+              width={440}
+              height={440}
               className="w-full h-auto object-cover block select-none rounded-xl"
               loading="lazy"
               decoding="async"
+              fetchPriority="low"
               referrerPolicy="no-referrer"
             />
           </div>

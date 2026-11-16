@@ -16,12 +16,17 @@ export default function App() {
   const [showBelowFold, setShowBelowFold] = useState(false);
 
   useEffect(() => {
+    // If user landed scrolled or with an anchor hash (#precos, #diagnostico-pais, etc.), mount immediately
+    if (window.scrollY > 10 || window.location.hash) {
+      setShowBelowFold(true);
+      return;
+    }
+
     let cancelled = false;
     const activate = () => {
       if (!cancelled) setShowBelowFold(true);
     };
 
-    // Hydrate below-the-fold sections on first interaction OR once browser is idle
     const win = window as Window & {
       requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
       cancelIdleCallback?: (id: number) => void;
@@ -32,9 +37,9 @@ export default function App() {
 
     const scheduleIdle = () => {
       if (typeof win.requestIdleCallback === 'function') {
-        idleId = win.requestIdleCallback(activate, { timeout: 1200 });
+        idleId = win.requestIdleCallback(activate, { timeout: 3500 });
       } else {
-        timerId = window.setTimeout(activate, 500);
+        timerId = window.setTimeout(activate, 2200);
       }
     };
 
@@ -47,6 +52,7 @@ export default function App() {
     window.addEventListener('scroll', activate, { once: true, passive: true });
     window.addEventListener('touchstart', activate, { once: true, passive: true });
     window.addEventListener('pointerdown', activate, { once: true, passive: true });
+    window.addEventListener('keydown', activate, { once: true, passive: true });
 
     return () => {
       cancelled = true;
@@ -56,6 +62,7 @@ export default function App() {
       window.removeEventListener('scroll', activate);
       window.removeEventListener('touchstart', activate);
       window.removeEventListener('pointerdown', activate);
+      window.removeEventListener('keydown', activate);
     };
   }, []);
 
