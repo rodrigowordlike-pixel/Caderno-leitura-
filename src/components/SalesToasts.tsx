@@ -6,23 +6,10 @@ export const SalesToasts: React.FC = () => {
   const [currentToastIndex, setCurrentToastIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
-  const [hasScrolledPastHero, setHasScrolledPastHero] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 380) {
-        setHasScrolledPastHero(true);
-      } else {
-        setHasScrolledPastHero(false);
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    if (isDismissed || !hasScrolledPastHero) {
+    if (isDismissed) {
       setIsVisible(false);
       return;
     }
@@ -31,26 +18,25 @@ export const SalesToasts: React.FC = () => {
       timeoutRef.current = setTimeout(() => {
         setIsVisible(true);
 
-        // Visible for 4 seconds
         timeoutRef.current = setTimeout(() => {
           setIsVisible(false);
-
           setCurrentToastIndex((prev) => (prev + 1) % SALES_NOTIFICATIONS.length);
           const nextCount = count + 1;
-          const nextDelay = nextCount < 2 ? 6000 : 12000;
+          const nextDelay = nextCount < 2 ? 7000 : 12000;
           scheduleNext(nextDelay, nextCount);
         }, 4000);
       }, delayMs);
     };
 
-    scheduleNext(2000, 0);
+    // Component itself mounts only after 3s delay in App.tsx
+    scheduleNext(300, 0);
 
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [isDismissed, hasScrolledPastHero]);
+  }, [isDismissed]);
 
-  if (isDismissed || !hasScrolledPastHero) return null;
+  if (isDismissed) return null;
 
   const currentNotification = SALES_NOTIFICATIONS[currentToastIndex];
 
@@ -73,7 +59,7 @@ export const SalesToasts: React.FC = () => {
           <span className="font-bold text-slate-100">{currentNotification.name}</span>
           <span className="text-slate-400 text-[10px]">({currentNotification.location.split(' - ')[1] || 'BR'})</span>
           <span className="text-slate-400">·</span>
-          <span className="text-emerald-400 font-semibold truncate">comprou o Kit</span>
+          <span className="text-emerald-400 font-semibold truncate">{currentNotification.plan}</span>
         </div>
 
         <button

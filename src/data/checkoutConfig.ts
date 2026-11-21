@@ -3,7 +3,7 @@ export const ASSETS = {
   heroMockup: '/assets/optimized/IMG_8790_a2929a64.webp',
   // Optimized WebP image for the R$ 9,90 combo showing 8 notebooks + 6 bonuses
   comboMockup: '/assets/optimized/IMG_8859_e57429e4.webp',
-  // Streaming-optimized compressed VSL MP4 (+faststart) & instant WebP poster
+  // Streaming-optimized compressed VSL MP4 (+faststart) & instant 9:16 WebP poster
   vslVideo: '/assets/optimized/vsl.mp4',
   vslPoster: '/assets/optimized/vsl-poster.webp',
   motherChildReading: '/assets/optimized/IMG_8942_875dcae4.webp',
@@ -15,23 +15,92 @@ export const CHECKOUT_URLS = {
   basic: 'https://pay.wiapy.com/EifdeIu3KQr',
 };
 
-export const buildCheckoutUrl = (plan: 'combo' | 'basic'): string => {
-  const baseUrl = plan === 'basic' ? CHECKOUT_URLS.basic : CHECKOUT_URLS.combo;
-  if (typeof window === 'undefined' || !window.location.search) {
+const TRACKING_PARAMS = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_term',
+  'utm_content',
+  'fbclid',
+  'gclid',
+  'ttclid',
+  'src',
+  'sck',
+] as const;
+
+const TRACKING_STORAGE_KEY = '__leitura_tracking_params';
+
+const getPersistedTrackingParams = (): URLSearchParams => {
+  const params = new URLSearchParams();
+  if (typeof window === 'undefined') return params;
+
+  try {
+    const saved = window.sessionStorage.getItem(TRACKING_STORAGE_KEY);
+    if (saved) {
+      const parsed = new URLSearchParams(saved);
+      parsed.forEach((value, key) => {
+        if (value) params.set(key, value);
+      });
+    }
+
+    if (window.location.search) {
+      const current = new URLSearchParams(window.location.search);
+      current.forEach((value, key) => {
+        if (value) params.set(key, value);
+      });
+      const toStore = params.toString();
+      if (toStore) {
+        window.sessionStorage.setItem(TRACKING_STORAGE_KEY, toStore);
+      }
+    }
+  } catch {
+    if (window.location.search) {
+      return new URLSearchParams(window.location.search);
+    }
+  }
+
+  return params;
+};
+
+/**
+ * Decora qualquer URL de checkout repassando todos os parâmetros de campanha e atribuição
+ * (utm_source, utm_medium, utm_campaign, utm_term, utm_content, fbclid, gclid, ttclid, src, etc.).
+ */
+export const decorateCheckoutUrl = (baseUrl: string): string => {
+  if (typeof window === 'undefined') {
     return baseUrl;
   }
+
+  const incoming = getPersistedTrackingParams();
+  if (!incoming.toString()) {
+    return baseUrl;
+  }
+
   try {
-    const incoming = new URLSearchParams(window.location.search);
     const target = new URL(baseUrl);
+
+    for (const key of TRACKING_PARAMS) {
+      const val = incoming.get(key);
+      if (val && !target.searchParams.has(key)) {
+        target.searchParams.set(key, val);
+      }
+    }
+
     incoming.forEach((value, key) => {
-      if (!target.searchParams.has(key)) {
+      if (value && !target.searchParams.has(key)) {
         target.searchParams.set(key, value);
       }
     });
+
     return target.toString();
   } catch {
     return baseUrl;
   }
+};
+
+export const buildCheckoutUrl = (plan: 'combo' | 'basic'): string => {
+  const baseUrl = plan === 'basic' ? CHECKOUT_URLS.basic : CHECKOUT_URLS.combo;
+  return decorateCheckoutUrl(baseUrl);
 };
 
 const warmedUrls = new Set<string>();
@@ -81,9 +150,9 @@ export const trackAndRedirectToCheckout = (
 ) => {
   const url = buildCheckoutUrl(plan);
   const value = plan === 'basic' ? 8.90 : 9.90;
-  const contentName = plan === 'basic' ? 'Opção Básica - R$ 8,90' : 'Pacote Premium Kit Completo - R$ 9,90';
+  const contentName = plan === 'basic' ? 'Plano Básico - R$ 8,90' : 'Combo Completo - R$ 9,90';
 
-  // Free 100% of mobile 4G bandwidth immediately from any ongoing VSL video download
+  // Free mobile bandwidth from active video stream before navigation
   abortBackgroundVideoStreams();
 
   if (typeof window !== 'undefined' && (window as any).fbq) {
@@ -98,6 +167,5 @@ export const trackAndRedirectToCheckout = (
     }
   }
 
-  // Navigate directly to Wiapy checkout with preserved UTMs/fbclid
   window.location.href = url;
 };

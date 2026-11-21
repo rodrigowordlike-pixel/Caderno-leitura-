@@ -30,9 +30,9 @@ export const Footer: React.FC = () => {
             <div className="text-white font-bold text-sm mb-3">Links Rápidos</div>
             <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-xs">
               <li><a href="#como-funciona" className="hover:text-white transition-colors">Como Funciona</a></li>
+              <li><a href="#oque-recebe" className="hover:text-white transition-colors">O Que Você Recebe</a></li>
               <li><a href="#depoimentos" className="hover:text-white transition-colors">Depoimentos</a></li>
-              <li><a href="#bonus" className="hover:text-white transition-colors">Bônus Exclusivos</a></li>
-              <li><a href="#precos" className="hover:text-white transition-colors">Tabela de Preços</a></li>
+              <li><a href="#ofertas" className="hover:text-white transition-colors">Planos e Preços</a></li>
               <li><a href="#faq" className="hover:text-white transition-colors">Dúvidas Frequentes</a></li>
             </ul>
           </div>

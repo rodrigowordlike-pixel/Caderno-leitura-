@@ -53,6 +53,8 @@ export const SocialProofCarousel: React.FC = () => {
                 height={40}
                 loading="lazy"
                 decoding="async"
+                fetchPriority="low"
+                referrerPolicy="no-referrer"
                 className="w-10 h-10 rounded-full object-cover border-2 border-white/60"
               />
               <div>
@@ -164,8 +166,8 @@ export const SocialProofCarousel: React.FC = () => {
         </div>
 
         {/* Trust reinforcement statement */}
-        <div className="text-center mt-6 text-xs text-slate-500">
-          Mais de 14.800 famílias em todos os 26 estados do Brasil já destravaram a leitura com o método.
+        <div className="text-center mt-5 text-xs text-slate-500">
+          Avaliação média de 4,9/5 entre pais, mães e educadores que utilizam os cadernos em casa.
         </div>
 
       </div>
